@@ -1,1 +1,14 @@
-// Specific CSS for your home-page
+body {
+  background-color: #1a1a36;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-img {
+  max-width: 30%;
+  height: auto;
+}
