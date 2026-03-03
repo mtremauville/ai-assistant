@@ -49,7 +49,7 @@
   <!-- Auth buttons - inside the ball -->
   <div class="auth-panel" id="authPanel">
     <button class="hero-btn hero-btn--login" id="loginBtn">Log In</button>
-    <%= link_to "Register", new_user_registration_path, class: "hero-btn hero-btn--register" %>
+    <%= link_to "Register", new_user_registration_path, class: "hero-btn hero-btn--register", data: { turbo: false } %>
   </div>
 
   <!-- Login panel (morphs inside ball) -->
@@ -76,7 +76,7 @@
     <% end %>
     <div class="login-footer">
       No account yet?
-      <%= link_to "Register", new_user_registration_path %>
+      <%= link_to "Register", new_user_registration_path, data: { turbo: false } %>
     </div>
   </div>
 
@@ -95,6 +95,7 @@
 
 <% content_for :scripts do %>
   <script>
+
     const scene     = document.getElementById('scene');
     const loginBtn  = document.getElementById('loginBtn');
     const loginBack = document.getElementById('loginBack');
