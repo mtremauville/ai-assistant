@@ -1,0 +1,81 @@
+<% content_for :hide_navbar, true %>
+
+<div class="tl-scene" data-controller="training-library">
+
+  <%# ── LEFT SIDEBAR ─────────────────────────────────────────────── %>
+  <aside class="tl-sidebar">
+
+    <div>
+      <p class="tl-eyebrow">An AI Chatbot Trainer · The Maestro of Padel</p>
+      <h1 class="tl-brand">Padel<br>Maestro</h1>
+    </div>
+
+    <div class="tl-library-header">
+      <span class="tl-library-label">Bibliothèque d'exercices</span>
+      <span class="tl-library-count"><%= @trainings.count %> exercice<%= @trainings.count > 1 ? "s" : "" %></span>
+    </div>
+
+    <% if @trainings.any? %>
+      <div class="tl-cards-list">
+        <% @trainings.each do |training| %>
+          <div class="tl-card"
+               data-training-library-target="card"
+               data-id="<%= training.id %>">
+
+            <div class="tl-card-top">
+              <span class="tl-badge"><%= training.training_type %></span>
+              <div class="tl-card-meta">
+                <span><i class="fa-regular fa-clock"></i> <%= training.duration %></span>
+                <span><i class="fa-solid fa-user"></i> <%= training.team_size %></span>
+              </div>
+            </div>
+
+            <h3 class="tl-card-title">Séance <%= training.training_type.capitalize %></h3>
+
+            <p class="tl-card-desc">
+              <%= truncate(training.content.to_s, length: 95, omission: "…") %>
+            </p>
+
+            <div class="tl-card-footer">
+              <%= link_to "Ouvrir", training_path(training),
+                    data: {
+                      turbo_frame: "training-detail",
+                      action: "click->training-library#select",
+                      training_id: training.id
+                    },
+                    class: "tl-open-btn" %>
+
+              <div class="tl-intensity">
+                <% 10.times do |i| %>
+                  <span class="tl-intensity-dot <%= i < training.intensity ? 'active' : '' %>"></span>
+                <% end %>
+              </div>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div style="text-align:center; margin-top: 40px; color: rgba(245,245,240,0.3);">
+        <i class="fa-solid fa-dumbbell fa-2x" style="margin-bottom: 12px; display:block;"></i>
+        <p style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;">
+          Aucun exercice pour le moment
+        </p>
+      </div>
+    <% end %>
+
+  </aside>
+
+  <%# ── RIGHT DETAIL PANEL ──────────────────────────────────────── %>
+  <div class="tl-detail">
+    <%= turbo_frame_tag "training-detail" do %>
+      <div class="tl-empty-state">
+        <span class="tl-empty-icon">
+          <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+        </span>
+        <p>Sélectionnez un exercice</p>
+      </div>
+    <% end %>
+  </div>
+
+</div>
