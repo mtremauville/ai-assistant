@@ -25,14 +25,18 @@
 
   <body>
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
-    <header>
-      <%= render "shared/navbar" %> <!-- 👈 Add this for navbar -->
-    </header>
+    <% unless content_for?(:hide_navbar) %>
+      <header>
+        <%= render "shared/navbar" %>
+      </header>
+    <% end %>
 
     <main id="main-content">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <%= yield %>
     </main>
+
+    <%= yield :scripts %>
   </body>
 </html>
