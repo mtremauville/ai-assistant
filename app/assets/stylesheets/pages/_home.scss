@@ -56,8 +56,12 @@ body.home-page {
   background: radial-gradient(circle at 35% 35%, #f9e070, #F4D03F 45%, #dbb800 75%, #c4a400 100%);
   z-index: 6;
   pointer-events: none;
-  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform      0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow     0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              width          0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              height         0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              right          0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-radius  0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 0 0 0px rgba(180, 210, 0, 0);
   overflow: hidden;
 
@@ -305,6 +309,174 @@ body.home-page {
 .scene.hovered .hint {
   opacity: 0;
   pointer-events: none;
+}
+
+// ── Login-open state ─────────────────────────────────────────────────────────
+.scene.login-open .ball {
+  transform: translateY(-50%) scale(1);
+  width: 460px;
+  height: 520px;
+  border-radius: 12px;
+  right: 8vw;
+  pointer-events: all;
+  box-shadow: 0 40px 100px rgba(10, 10, 10, 0.5), 0 0 80px rgba(244, 208, 63, 0.12);
+}
+
+.scene.login-open .ball-seams { opacity: 0.06; }
+
+.scene.login-open .auth-panel {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.15s ease !important;
+}
+
+.scene.login-open .tagline {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.scene.login-open .hint { opacity: 0; pointer-events: none; }
+
+.scene.login-open .racket-wrap {
+  transform: translateX(50%) translateY(8%) rotate(30deg);
+  filter: drop-shadow(0 30px 60px rgba(10, 10, 10, 0.25));
+}
+
+.scene.login-open .racket-zone::after { opacity: 0; }
+
+// ── Login panel form ──────────────────────────────────────────────────────────
+.login-panel {
+  position: absolute;
+  right: 8vw;
+  top: 50%;
+  width: 460px;
+  padding: 40px 46px;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.88);
+  transition: opacity 0.15s ease, transform 0.2s ease;
+}
+
+.scene.login-open .login-panel {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(-50%) scale(1);
+  transition: opacity 0.38s ease 0.48s, transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.42s;
+}
+
+.login-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.38);
+  margin-bottom: 20px;
+  transition: color 0.2s ease;
+
+  &:hover { color: rgba(10, 10, 10, 0.7); }
+}
+
+.login-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem;
+  letter-spacing: 0.06em;
+  color: var(--night);
+  line-height: 0.92;
+  margin-bottom: 6px;
+}
+
+.login-sub {
+  font-size: 0.73rem;
+  color: rgba(10, 10, 10, 0.4);
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.login-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.42);
+}
+
+.login-input {
+  width: 100%;
+  background: rgba(10, 10, 10, 0.06);
+  border: 1.5px solid rgba(10, 10, 10, 0.13);
+  border-radius: 3px;
+  padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--night);
+  outline: none;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &::placeholder { color: rgba(10, 10, 10, 0.2); }
+  &:focus { border-color: var(--night); background: rgba(10, 10, 10, 0.03); }
+}
+
+.login-forgot {
+  display: block;
+  text-align: right;
+  font-size: 0.64rem;
+  color: rgba(10, 10, 10, 0.35);
+  text-decoration: none;
+  margin-top: -2px;
+  margin-bottom: 18px;
+  transition: color 0.2s ease;
+
+  &:hover { color: rgba(10, 10, 10, 0.6); }
+}
+
+.login-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--night);
+  color: var(--yellow);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.2s ease;
+
+  &:hover { opacity: 0.84; transform: translateY(-1px); }
+}
+
+.login-footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.68rem;
+  color: rgba(10, 10, 10, 0.36);
+
+  a {
+    color: var(--night);
+    font-weight: 500;
+    margin-left: 4px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(35, 29, 77, 0.22);
+    transition: border-color 0.2s ease;
+
+    &:hover { border-color: var(--night); }
+  }
 }
 
 // ── Divider line ─────────────────────────────────────────────────────────────

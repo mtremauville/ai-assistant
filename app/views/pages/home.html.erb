@@ -48,8 +48,36 @@
 
   <!-- Auth buttons - inside the ball -->
   <div class="auth-panel" id="authPanel">
-    <%= link_to "Se connecter", new_user_session_path, class: "hero-btn hero-btn--login" %>
-    <%= link_to "S'inscrire", new_user_registration_path, class: "hero-btn hero-btn--register" %>
+    <button class="hero-btn hero-btn--login" id="loginBtn">Log In</button>
+    <%= link_to "Register", new_user_registration_path, class: "hero-btn hero-btn--register" %>
+  </div>
+
+  <!-- Login panel (morphs inside ball) -->
+  <div class="login-panel" id="loginPanel">
+    <button class="login-back" id="loginBack">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Back
+    </button>
+    <div class="login-title">Welcome<br>Back</div>
+    <p class="login-sub">Sign in to continue</p>
+    <%= form_with url: user_session_path, method: :post, data: { turbo: false } do %>
+      <div class="login-field">
+        <label class="login-label">Email</label>
+        <input class="login-input" type="email" name="user[email]" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="login-field">
+        <label class="login-label">Password</label>
+        <input class="login-input" type="password" name="user[password]" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <%= link_to "Forgot password?", new_user_password_path, class: "login-forgot" %>
+      <button type="submit" class="login-submit">Sign in</button>
+    <% end %>
+    <div class="login-footer">
+      No account yet?
+      <%= link_to "Register", new_user_registration_path %>
+    </div>
   </div>
 
   <!-- Tagline -->
@@ -67,20 +95,19 @@
 
 <% content_for :scripts do %>
   <script>
-    const scene = document.getElementById('scene');
+    const scene     = document.getElementById('scene');
+    const loginBtn  = document.getElementById('loginBtn');
+    const loginBack = document.getElementById('loginBack');
     let hoverTimeout = null;
     let currentState = false;
 
     function setState(shouldHover) {
+      if (scene.classList.contains('login-open')) return;
       if (shouldHover === currentState) return;
       clearTimeout(hoverTimeout);
       hoverTimeout = setTimeout(() => {
         currentState = shouldHover;
-        if (shouldHover) {
-          scene.classList.add('hovered');
-        } else {
-          scene.classList.remove('hovered');
-        }
+        scene.classList.toggle('hovered', shouldHover);
       }, shouldHover ? 80 : 120);
     }
 
@@ -88,9 +115,19 @@
       setState(e.clientX > window.innerWidth * 0.42);
     });
     scene.addEventListener('mouseleave', () => {
+      if (scene.classList.contains('login-open')) return;
       clearTimeout(hoverTimeout);
       currentState = false;
       scene.classList.remove('hovered');
+    });
+
+    loginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      scene.classList.add('login-open');
+    });
+
+    loginBack.addEventListener('click', () => {
+      scene.classList.remove('login-open');
     });
   </script>
 <% end %>
