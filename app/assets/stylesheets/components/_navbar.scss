@@ -1,12 +1,46 @@
-.navbar-lewagon {
+$nav-h: 52px;
+
+.app-nav {
+  height: $nav-h;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  background: white;
-}
+  padding: 0 28px;
+  background: #1a1540;
+  border-bottom: 1px solid rgba(245, 245, 240, 0.06);
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
+  &__logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: #f5f5f0;
+  }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__link {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245, 245, 240, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover { color: #f5f5f0; }
+
+    &--logout {
+      padding: 5px 14px;
+      border: 1px solid rgba(245, 245, 240, 0.12);
+      border-radius: 2px;
+
+      &:hover {
+        border-color: rgba(245, 245, 240, 0.3);
+        color: #f5f5f0;
+      }
+    }
+  }
 }

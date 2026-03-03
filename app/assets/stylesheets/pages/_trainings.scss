@@ -7,12 +7,15 @@ $tr-border: rgba(245, 245, 240, 0.08);
 $tr-ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
 // Force full-height when split scene is active
+$nav-h: 52px;
+
 body:has(.tl-scene) {
   overflow: hidden;
   height: 100vh;
+  background: #1a1540;
 
   main#main-content {
-    height: 100vh;
+    height: calc(100vh - $nav-h);
     overflow: hidden;
     padding: 0;
     margin: 0;
@@ -22,7 +25,7 @@ body:has(.tl-scene) {
 // ── Scene wrapper ───────────────────────────────────────────────────
 .tl-scene {
   display: flex;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
