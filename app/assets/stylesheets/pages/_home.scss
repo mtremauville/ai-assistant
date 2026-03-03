@@ -1,14 +1,320 @@
-body {
-  background-color: #1a1a36;
-  margin: 0;
+// ── Home Hero Page ──────────────────────────────────────────────────────────
+
+// Remove default layout spacing on home page
+body.home-page {
+  overflow: hidden;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  main#main-content {
+    padding: 0;
+    margin: 0;
+
+    p.notice, p.alert { display: none; }
+  }
 }
 
-.main-img {
-  max-width: 30%;
-  height: auto;
+// ── CSS Variables ────────────────────────────────────────────────────────────
+.scene {
+  --black: #0a0a0a;
+  --night: #231D4D;
+  --night-light: #2e2660;
+  --yellow: #F4D03F;
+  --yellow-deep: #e8b800;
+  --white: #f5f5f0;
+  --transition: 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+// ── Scene ────────────────────────────────────────────────────────────────────
+.scene {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1540 0%, #231D4D 50%, #2a2260 100%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+  font-family: 'DM Sans', sans-serif;
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+}
+
+// ── Padel ball ───────────────────────────────────────────────────────────────
+.ball {
+  position: absolute;
+  right: 12vw;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f9e070, #F4D03F 45%, #dbb800 75%, #c4a400 100%);
+  z-index: 6;
+  pointer-events: none;
+  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 0 0px rgba(180, 210, 0, 0);
+  overflow: hidden;
+
+  &::before, &::after { display: none; }
+}
+
+.ball-seams {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.scene.hovered .ball {
+  transform: translateY(-50%) scale(1);
+  pointer-events: all;
+  box-shadow: 0 30px 80px rgba(10, 10, 10, 0.4), 0 0 60px rgba(244, 208, 63, 0.2);
+}
+
+// ── Auth panel ───────────────────────────────────────────────────────────────
+.auth-panel {
+  position: absolute;
+  right: 12vw;
+  top: 50%;
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.7);
+  transition: opacity 0.35s ease 0.55s, transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+}
+
+.scene.hovered .auth-panel {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(-50%) scale(1);
+}
+
+// ── Grain overlay ────────────────────────────────────────────────────────────
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+// ── Brand / logo ─────────────────────────────────────────────────────────────
+.brand {
+  position: absolute;
+  top: 42px;
+  left: calc(42vw + 20px);
+  z-index: 20;
+  transition: color var(--transition);
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: 0.08em;
+    color: var(--white);
+    line-height: 1;
+    transition: color var(--transition);
+    margin: 0;
+  }
+
+  span {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(245, 245, 240, 0.4);
+    margin-top: 4px;
+    transition: color var(--transition);
+  }
+}
+
+// ── Racket zone ──────────────────────────────────────────────────────────────
+.racket-zone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 42vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  z-index: 5;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #231D4D);
+    opacity: 1;
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+  }
+}
+
+.scene.hovered .racket-zone::after {
+  opacity: 0;
+}
+
+.racket-wrap {
+  position: relative;
+  width: 544px;
+  height: 748px;
+  transform: translateX(50%) translateY(8%) rotate(-12deg);
+  transform-origin: center center;
+  transition: transform var(--transition);
+  filter: drop-shadow(0 0 0px rgba(244, 208, 63, 0));
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  svg .st0 {
+    fill: var(--white);
+    transition: fill var(--transition);
+  }
+}
+
+.scene.hovered .racket-wrap {
+  transform: translateX(50%) translateY(8%) rotate(30deg);
+  filter: drop-shadow(0 30px 60px rgba(10, 10, 10, 0.25));
+}
+
+// ── Hero buttons (prefixed pour éviter les conflits Bootstrap) ───────────────
+.hero-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 44px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  min-width: 190px;
+
+  &.hero-btn--login {
+    background: var(--night);
+    color: var(--yellow);
+
+    &:hover {
+      background: #1a1540;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(10, 10, 10, 0.3);
+      color: var(--yellow);
+      text-decoration: none;
+    }
+  }
+
+  &.hero-btn--register {
+    background: transparent;
+    color: var(--night);
+    border: 2px solid var(--night);
+
+    &:hover {
+      background: rgba(35, 29, 77, 0.08);
+      transform: translateY(-2px);
+      color: var(--night);
+      text-decoration: none;
+    }
+  }
+}
+
+// ── Tagline ──────────────────────────────────────────────────────────────────
+.tagline {
+  position: absolute;
+  left: 42vw;
+  bottom: 52px;
+  z-index: 20;
+  padding-left: 28px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+
+  p {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245, 245, 240, 0.4);
+    margin: 0;
+  }
+}
+
+.scene.hovered .tagline {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+// ── Hover hint ───────────────────────────────────────────────────────────────
+.hint {
+  position: absolute;
+  bottom: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(245, 245, 240, 0.3);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: opacity var(--transition), color var(--transition);
+  z-index: 20;
+
+  .arrow {
+    width: 28px;
+    height: 1px;
+    background: rgba(245, 245, 240, 0.3);
+    position: relative;
+    transition: background var(--transition), width 0.4s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -3px;
+      border: 4px solid transparent;
+      border-left-color: rgba(245, 245, 240, 0.3);
+      transition: border-left-color var(--transition);
+    }
+  }
+}
+
+.scene.hovered .hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+// ── Divider line ─────────────────────────────────────────────────────────────
+.divider {
+  position: absolute;
+  left: 42vw;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(245, 245, 240, 0.06);
+  transition: background var(--transition);
+  z-index: 4;
 }
