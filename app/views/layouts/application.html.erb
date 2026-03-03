@@ -32,8 +32,8 @@
     <% end %>
 
     <main id="main-content">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <%= tag.p notice, class: "notice" if notice.present? %>
+      <%= tag.p alert, class: "alert" if alert.present? %>
       <%= yield %>
     </main>
 
