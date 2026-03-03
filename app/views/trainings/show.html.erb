@@ -1,0 +1,88 @@
+<%= turbo_frame_tag "training-detail" do %>
+  <div class="tl-detail-inner">
+
+    <%# ── Header ─────────────────────────────────────────────────── %>
+    <button class="tl-detail-back"
+            data-action="click->training-library#close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Fermer
+    </button>
+
+    <h1 class="tl-detail-title">Séance <%= @training.training_type.capitalize %></h1>
+
+    <div class="tl-detail-badges">
+      <span class="tl-detail-badge badge-type"><%= @training.training_type %></span>
+      <span class="tl-detail-badge badge-meta">
+        <i class="fa-regular fa-clock me-1"></i><%= @training.duration %> min
+      </span>
+      <span class="tl-detail-badge badge-meta">
+        <i class="fa-solid fa-user me-1"></i>
+        <%= @training.team_size %> joueur<%= @training.team_size > 1 ? "s" : "" %>
+      </span>
+      <span class="tl-detail-badge badge-meta">
+        Intensité <%= @training.intensity %>/10
+      </span>
+    </div>
+
+    <%# ── Image placeholder ──────────────────────────────────────── %>
+    <div class="tl-detail-image">
+      <div class="tl-img-placeholder">
+        <i class="fa-regular fa-image fa-2x"></i>
+        <span>Exercice Padel</span>
+      </div>
+    </div>
+
+    <%# ── Info boxes ─────────────────────────────────────────────── %>
+    <div class="tl-info-row">
+      <div class="tl-info-box">
+        <div class="tl-info-label">Type</div>
+        <div class="tl-info-value"><%= @training.training_type.capitalize %></div>
+      </div>
+      <div class="tl-info-box">
+        <div class="tl-info-label">Durée</div>
+        <div class="tl-info-value"><%= @training.duration %> min</div>
+      </div>
+      <div class="tl-info-box">
+        <div class="tl-info-label">Joueurs</div>
+        <div class="tl-info-value"><%= @training.team_size %></div>
+      </div>
+      <div class="tl-info-box">
+        <div class="tl-info-label">Note</div>
+        <div class="tl-info-value">
+          <% if @training.feedback_rating.present? %>
+            <%= @training.feedback_rating %>/10
+          <% else %>
+            —
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <%# ── Mise en place ──────────────────────────────────────────── %>
+    <div class="tl-section">
+      <div class="tl-section-title">
+        <i class="fa-solid fa-list-ol"></i> Mise en place
+      </div>
+      <div class="tl-section-content">
+        <% if @training.content.present? %>
+          <%= simple_format(@training.content) %>
+        <% else %>
+          <p style="font-style: italic; opacity: 0.55;">Aucun contenu disponible pour cet exercice.</p>
+        <% end %>
+      </div>
+    </div>
+
+    <%# ── Le Conseil du Maestro ──────────────────────────────────── %>
+    <div class="tl-section tl-maestro">
+      <div class="tl-section-title">
+        <i class="fa-solid fa-star"></i> Le Conseil du Maestro
+      </div>
+      <div class="tl-section-content">
+        <p>Ce conseil sera bientôt affiché ici.</p>
+      </div>
+    </div>
+
+  </div>
+<% end %>
