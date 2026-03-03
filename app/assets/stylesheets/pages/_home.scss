@@ -17,6 +17,7 @@ body.home-page {
 
 // ── CSS Variables ────────────────────────────────────────────────────────────
 .scene {
+  --navbar-height: 0px;
   --black: #0a0a0a;
   --night: #231D4D;
   --night-light: #2e2660;
@@ -29,9 +30,12 @@ body.home-page {
 // ── Scene ────────────────────────────────────────────────────────────────────
 .scene {
   position: fixed;
-  inset: 0;
+  top: var(--navbar-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - var(--navbar-height));
   background: linear-gradient(135deg, #1a1540 0%, #231D4D 50%, #2a2260 100%);
   display: flex;
   align-items: center;
