@@ -7,17 +7,14 @@ class ChatsController < ApplicationController
 
       Transform the training program into a hash that can be used directly in an application as parameters to create an instance of a Training object in ruby
 
-      The format of the response should be like this:
-      { "duration" => a,
-        "training_type" => b,
-        "team_size" => c,
-        "content" => d,
-      }
+      The format of the response should be like a JSON with the following key value pairs:
+      duration: a, training_type: b, team_size: c, intensity: d, content: e
       Where:
        - a is an integer, and is the number of minutes that the training program lasts in total
        - b is a short strign of max 3 words that describe the focus of the training
        - c is an integer of the number of people for which this training is for
-       - d is a long text, containing exactly the part of the message sent by me (the user)
+       - d is an integer between 0 and 10 that evaluates the intensity, with highest intensity being 10 and lowest intensity being 0
+       - e is a long text, containing exactly the part of the message sent by me (the user)
        where the training is described in different parts and subtitles
   PROMPT
 
@@ -41,12 +38,22 @@ class ChatsController < ApplicationController
     # get the last message
     @chat = current_user.chats.find(params[:id])
     last_message = @chat.messages.last
-    raise
+
     llm_instance = RubyLLM.chat
     #  give prompt context to the llm instance
     instructed_llm_instance = llm_instance.with_instructions(HASH_PROMPT)
     #  then give it the content of the user message to generate an adequate answer
     response = instructed_llm_instance.ask(last_message.content)
-    raise
+    parsed = JSON.parse(response.content)
+    new_training = Training.new(parsed)
+
+    # set default feedback rating
+    new_training.feedback_rating = 10
+
+    new_training.user = current_user
+    new_training.chat = @chat
+    new_training.save!
+
+    redirect_to trainings_path
   end
 end
