@@ -28,7 +28,7 @@
               </div>
             </div>
 
-            <h3 class="tl-card-title">Séance <%= training.training_type.capitalize %></h3>
+            <h3 class="tl-card-title"><%= training.name.presence || "Séance #{training.training_type.capitalize}" %></h3>
 
             <p class="tl-card-desc">
               <%= truncate(training.content.to_s, length: 95, omission: "…") %>
