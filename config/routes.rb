@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   resources :chats, only: [:create, :show] do
     resources :messages, only: :create
+    member do
+      post :generate_training
+    end
   end
 
   resources :trainings, only: [:index, :show]

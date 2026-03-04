@@ -71,6 +71,7 @@
 
   </main>
 </div>
+<%= link_to "Save training", generate_training_chat_path(@chat), data: { turbo_method: :post } %>
 
 <% content_for :scripts do %>
   <script>
