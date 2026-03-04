@@ -25,14 +25,15 @@ class MessagesController < ApplicationController
     # if the message makes sense and we can save it, we generate an answer from the llm
     # and we store it as a new message
     if @message.save
-      llm_instance = RubyLLM.chat
+      @llm_instance = RubyLLM.chat
+      build_conversation_history
       #  give prompt context to the llm instance
-      instructed_llm_instance = llm_instance.with_instructions(instructions)
+      instructed_llm_instance = @llm_instance.with_instructions(instructions)
       #  then give it the content of the user message to generate an adequate answer
       response = instructed_llm_instance.ask(@message.content)
 
       # now that we have our response we create a new message entity that comes from the llm
-      Message.create({ role: "assistant", content: response.content, chat: @chat })
+      @chat.messages.create(role: "assistant", content: response.content)
 
       # go back to where all messages are
       redirect_to chat_path(@chat)
@@ -49,28 +50,22 @@ class MessagesController < ApplicationController
 
   #  takes all user info and makes it a prompt context
   def user_info_context
-    "Here is the information on me regarding padel level and fitness level:
+    "Here is all the necessary information on the user (me) regarding padel level and fitness level:
     \n - my age: #{current_user.age}
     \n - my weight: #{current_user.weight}
     \n - my height: #{current_user.height}
     \n - my padel level (out of 7 maximum): #{current_user.padel_level}"
   end
 
-  #  takes all previous messages info and makes it a prompt context
-  def all_previous_messages_info_context
-    context_prompt = "Here are all messages previously shared by the user in this
-    conversation, possibly already containing duration, number of people playing, intensity
-    desired and type of training desired:"
-    @chat = current_user.chats.find(params[:chat_id])
-    @chat.messages.each.with_index do |prev_message, index|
-      context_prompt << "\nPrevious message #{index + 1}: #{prev_message.content}" if prev_message.role == "user"
+  def build_conversation_history
+    @chat.messages.each do |message|
+      @llm_instance.add_message(message)
     end
-    return context_prompt
   end
 
   # instructions for the llm taking the prompt + user context into account
   def instructions
-    [SYSTEM_PROMPT, user_info_context, all_previous_messages_info_context]
+    [SYSTEM_PROMPT, user_info_context]
       .compact.join("\n\n")
   end
 end
