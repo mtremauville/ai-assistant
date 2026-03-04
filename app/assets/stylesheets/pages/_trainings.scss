@@ -10,13 +10,9 @@ $tr-ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
 $nav-h: 52px;
 
 body:has(.tl-scene) {
-  overflow: hidden;
-  height: 100vh;
   background: #1a1540;
 
   main#main-content {
-    height: calc(100vh - $nav-h);
-    overflow: hidden;
     padding: 0;
     margin: 0;
   }
@@ -25,8 +21,7 @@ body:has(.tl-scene) {
 // ── Scene wrapper ───────────────────────────────────────────────────
 .tl-scene {
   display: flex;
-  height: 100%;
-  overflow: hidden;
+  height: calc(100vh - $nav-h);
 }
 
 // ── LEFT SIDEBAR ────────────────────────────────────────────────────
@@ -34,7 +29,7 @@ body:has(.tl-scene) {
   width: 38%;
   min-width: 300px;
   max-width: 500px;
-  height: 100%;
+  min-height: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -241,7 +236,7 @@ body:has(.tl-scene) {
 // ── RIGHT DETAIL PANEL ──────────────────────────────────────────────
 .tl-detail {
   flex: 1;
-  height: 100%;
+  min-height: 0;
   overflow-y: auto;
   background: linear-gradient(160deg, #1a1540 0%, $tr-night 55%, #26205a 100%);
   position: relative;
@@ -261,11 +256,14 @@ body:has(.tl-scene) {
     pointer-events: none;
   }
 
-  turbo-frame { display: block; min-height: 100%; }
+  turbo-frame { display: block; }
 
-  &::-webkit-scrollbar { width: 3px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background: $tr-border; border-radius: 2px; }
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(244, 208, 63, 0.3);
+    border-radius: 3px;
+  }
 }
 
 // Empty state

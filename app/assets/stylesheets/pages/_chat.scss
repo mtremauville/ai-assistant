@@ -63,6 +63,36 @@
 
 .sidebar-spacer { flex: 1; min-height: 16px; }
 
+.save-training-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #13172e;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f0c93a, #d4a820);
+  border: none;
+  margin-top: 8px;
+  transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
+  text-decoration: none;
+  width: 100%;
+  box-shadow: 0 0 14px rgba(240,201,58,0.25), 0 3px 8px rgba(0,0,0,0.3);
+
+  svg {
+    width: 13px; height: 13px;
+    fill: #13172e;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 22px rgba(240,201,58,0.45), 0 5px 14px rgba(0,0,0,0.35);
+    color: #13172e;
+  }
+}
+
 .sidebar-training-btn {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 14px;
