@@ -32,6 +32,7 @@ class ChatsController < ApplicationController
   def show
     @chat    = current_user.chats.find(params[:id])
     @message = Message.new
+    @chats   = current_user.chats.order(created_at: :desc).limit(5)
   end
 
   def generate_training

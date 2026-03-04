@@ -45,67 +45,57 @@ puts "Creating trainings..."
 Training.create!(
   user: alice,
   chat: chat,
-  training_type: "Lobe",
-  duration: 60,
+  name: "Le Chasseur de Vitres",
+  training_type: "Défense",
+  duration: 30,
   intensity: 6,
-  team_size: 4,
-  feedback_rating: 7,
-  content: "Séance de jeu libre en double, bon travail au filet."
-)
-
-Training.create!(
-  user: alice,
-  chat: chat,
-  training_type: "Classic",
-  duration: 90,
-  intensity: 8,
   team_size: 2,
-  feedback_rating: 9,
-  content: "Entraînement technique : smash, volée et service. Très intense."
+  feedback_rating: 8,
+  image_url: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
+  content: "1. Positionnement : Le partenaire se place au filet pour smasher (sans chercher le coup gagnant direct). Tu te tiens à 1,5 mètre de la vitre de fond.\n\n2. L'engagement : Le partenaire envoie un smash lifté vers le centre du terrain.\n\n3. L'action : Tu dois accompagner la balle vers la vitre de fond sans la toucher avant le rebond. Une fois que la balle ressort de la vitre, effectue ton lob.",
+  maestro_conseil: "L'erreur classique est de rester trop droit. Fléchissez les genoux pour que votre centre de gravité soit bas — cela vous permettra d'anticiper la trajectoire de la balle sur la vitre et d'exécuter un lob fluide et précis."
 )
 
 Training.create!(
   user: alice,
   chat: chat,
-  training_type: "Classic",
+  name: "Le Mur Infranchissable",
+  training_type: "Volée",
   duration: 45,
   intensity: 7,
   team_size: 1,
-  feedback_rating: 8,
-  content: "Renforcement musculaire axé sur les jambes et le gainage."
-)
-
-Training.create!(
-  user: bob,
-  chat: chat,
-  training_type: "Endurance",
-  duration: 75,
-  intensity: 9,
-  team_size: 4,
-  feedback_rating: 8,
-  content: "Match de compétition, victoire 6-4 6-3. Excellente communication avec le partenaire."
-)
-
-Training.create!(
-  user: bob,
-  chat: chat,
-  training_type: "Classic",
-  duration: 30,
-  intensity: 5,
-  team_size: 1,
-  feedback_rating: 6,
-  content: "Footing léger pour récupération active après le match."
+  feedback_rating: 9,
+  image_url: nil,
+  content: "1. Position de départ : Placez-vous au filet, en position de volée haute, raquette devant vous.\n\n2. L'exercice : Le partenaire envoie des balles variées depuis le fond du court. Votre objectif est de placer chaque volée dans les coins, en variant les angles.\n\n3. Objectif : Empêcher l'adversaire de lober en anticipant sa trajectoire et en fermant les angles.",
+  maestro_conseil: "Ne cherchez pas la puissance — cherchez le placement. Une volée bien placée à 1 mètre du filet dans le couloir vaut mieux qu'un smash raté. Gardez les poignets fermes et utilisez le rebond de la raquette."
 )
 
 Training.create!(
   user: alice,
   chat: chat,
-  training_type: "Endurance",
-  duration: 60,
-  intensity: 7,
+  name: "La Bandeja Chirurgicale",
+  training_type: "Smash",
+  duration: 95,
+  intensity: 8,
   team_size: 4,
   feedback_rating: 8,
-  content: "Jeu en double avec travail sur la coordination et les déplacements."
+  image_url: nil,
+  content: "1. Mise en place : Deux joueurs au fond, deux au filet. Les joueurs du fond s'entraînent à la bandeja en alternance.\n\n2. L'exercice : Lorsqu'une balle haute arrive, effectuez une bandeja en visant la bande latérale, avec une trajectoire plongeante et précise.\n\n3. Rotation : Après chaque bandeja, le joueur retourne en position de défense. Rotation toutes les 10 frappes.",
+  maestro_conseil: "La bandeja n'est pas un smash — c'est un coup de contrôle. Visez à frapper la balle légèrement en avant de votre corps, avec un mouvement de haut en bas. L'objectif est de forcer l'adversaire à la faute par la trajectoire, pas par la puissance."
+)
+
+Training.create!(
+  user: bob,
+  chat: chat,
+  name: "Le Maître du Slice",
+  training_type: "Technique",
+  duration: 60,
+  intensity: 5,
+  team_size: 2,
+  feedback_rating: 7,
+  image_url: nil,
+  content: "1. Échauffement : 5 minutes d'échanges en slice depuis le fond du court.\n\n2. L'exercice : En situation de jeu, chaque coup de fond doit être joué en slice, en visant les pieds de l'adversaire au filet.\n\n3. Variante avancée : Alterner slice court (qui tombe proche du filet) et slice long (qui glisse vers la vitre de fond).",
+  maestro_conseil: "Le slice est une arme défensive et offensive à la fois. Travaillez à ouvrir la face de raquette juste avant l'impact pour donner un effet coupé maximal. Un bon slice bas oblige l'adversaire à jouer une volée basse difficile à conclure."
 )
 
 puts "Done! #{User.count} users, #{Chat.count} chat, #{Message.count} messages, #{Training.count} trainings."
