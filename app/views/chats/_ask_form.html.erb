@@ -1,4 +1,33 @@
 <%= simple_form_for [chat, message] do |f| %>
-    <%= f.input :content, label: "Ask a question", required: true, placeholder: "How should I get started with the challenge?" %>
-    <%= f.button :submit, 'Ask LLM', class: 'btn btn-primary' %>
-  <% end %>
+  <div class="input-container">
+    <div class="input-label">Ask a question</div>
+    <div class="textarea-wrap">
+      <%= f.text_area :content, id: "chatInput", placeholder: "How should I get started with the challenge?", rows: 2, onkeydown: "handleKey(event)" %>
+    </div>
+    <div class="input-footer">
+      <div class="quick-chips">
+        <span class="chip" onclick="fillInput(this)">Tactical drills</span>
+        <span class="chip" onclick="fillInput(this)">Physical prep</span>
+        <span class="chip" onclick="fillInput(this)">Match strategy</span>
+      </div>
+      <button type="submit" class="submit-btn">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        Ask LLM
+      </button>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  function fillInput(el) {
+    document.getElementById('chatInput').value = el.textContent.trim();
+    document.getElementById('chatInput').focus();
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      e.target.closest('form').requestSubmit();
+    }
+  }
+</script>
