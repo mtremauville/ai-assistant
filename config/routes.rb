@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "chats/show"
   devise_for :users
 
   authenticated :user do
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  resources :chats, only: :show do
+  resources :chats, only: [:create, :show] do
     resources :messages, only: :create
   end
 

@@ -1,0 +1,28 @@
+<h1>Chats#show</h1>
+<h1 id="chat_title"><%= @chat.title %></h1>
+
+<%# Display previous messages in the chat %>
+<div id="messages">
+  <% @chat.messages.each do |message| %>
+  <%# if it's a message from the user, then it's in a bubble %>
+    <% if message.role == "user" %>
+      <div class="d-flex justify-content-end mb-2">
+        <div class="bg-white px-3 pb-0 pt-3 rounded-pill">
+          <%= simple_format(message.content) %>
+        </div>
+      </div>
+      <%# if it's a message from the llm, it's normal %>
+    <% elsif message.role == "assistant" %>
+      <div class="d-flex justify-content-start mb-5">
+        <div class="px-3 pb-0 pt-3">
+          <%= simple_format(message.content) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%# container where to ask new message (as a form) %>
+<div id="new_message_container">
+  <%= render "ask_form", chat: @chat, message: @message %>
+</div>
