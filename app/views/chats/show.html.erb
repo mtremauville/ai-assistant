@@ -26,3 +26,4 @@
 <div id="new_message_container">
   <%= render "ask_form", chat: @chat, message: @message %>
 </div>
+<%= link_to "Save training", generate_training_chat_path(@chat) %>
