@@ -7,5 +7,5 @@
 <% end %>
 
 <%= turbo_stream.replace "new_message_container" do %>
-  <%= render "chats/ask_form", chat: @chat, message: Message.new %>
+  <%= render "chats/ask_form", chat: @chat, message: Message.new, chips: @chips %>
 <% end %>

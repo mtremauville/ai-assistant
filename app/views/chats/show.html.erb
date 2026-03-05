@@ -19,15 +19,17 @@
   </aside>
 
   <!-- MAIN -->
-  <main class="chat-main">
+  <main class="chat-main<%= ' chat-empty' if @chat.messages.empty? %>" id="chatMain">
 
     <!-- MESSAGES -->
     <div class="messages-wrap" id="messagesWrap">
       <div class="messages-inner" id="messages-inner">
 
-        <div>
-          <div class="chat-title"><%= @chat.title %></div>
-        </div>
+        <% unless @chat.messages.empty? %>
+          <div>
+            <div class="chat-title"><%= @chat.title %></div>
+          </div>
+        <% end %>
 
         <% @chat.messages.each do |message| %>
           <%= render "messages/message", message: message %>
@@ -36,9 +38,22 @@
       </div>
     </div>
 
-    <!-- INPUT -->
-    <div class="input-section" id="new_message_container">
-      <%= render "ask_form", chat: @chat, message: @message %>
+    <!-- BOTTOM GROUP: welcome + input (animated together) -->
+    <div class="chat-bottom-group" id="chatBottomGroup">
+
+      <% if @chat.messages.empty? %>
+        <div class="welcome-wrap" id="welcomeWrap">
+          <div class="welcome-greeting">
+            Hey, <span class="welcome-name"><%= current_user.email.split('@').first.capitalize %></span>
+          </div>
+          <div class="welcome-sub">Décris ta session idéale et je construis l'entraînement parfait.</div>
+        </div>
+      <% end %>
+
+      <div class="input-section" id="new_message_container">
+        <%= render "ask_form", chat: @chat, message: @message, chips: @chips %>
+      </div>
+
     </div>
 
   </main>
@@ -53,5 +68,48 @@
         messagesWrap.scrollTop = messagesWrap.scrollHeight;
       }).observe(messagesWrap, { childList: true, subtree: true });
     }
+
+    // FLIP animation: slide input from center to bottom on first submit
+    document.addEventListener('turbo:submit-start', function(e) {
+      const chatMain    = document.getElementById('chatMain');
+      const bottomGroup = document.getElementById('chatBottomGroup');
+      const welcomeWrap = document.getElementById('welcomeWrap');
+
+      // Always clear the input on submit
+      const chatInput = document.getElementById('chatInput');
+      if (chatInput) chatInput.value = '';
+
+      if (!chatMain || !chatMain.classList.contains('chat-empty')) return;
+
+      // Record current (centered) position
+      const first = bottomGroup.getBoundingClientRect();
+
+      // Remove class → layout jumps to final (bottom) position
+      chatMain.classList.remove('chat-empty');
+      void bottomGroup.offsetHeight; // force reflow
+
+      // Record final (bottom) position
+      const last = bottomGroup.getBoundingClientRect();
+      const dy = first.top - last.top;
+
+      // Start from original position
+      bottomGroup.style.transition = 'none';
+      bottomGroup.style.transform  = `translateY(${dy}px)`;
+
+      // Animate to final position
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          bottomGroup.style.transition = 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)';
+          bottomGroup.style.transform  = '';
+        });
+      });
+
+      // Fade out welcome message
+      if (welcomeWrap) {
+        welcomeWrap.style.transition = 'opacity 0.25s ease';
+        welcomeWrap.style.opacity    = '0';
+        setTimeout(() => welcomeWrap.remove(), 300);
+      }
+    });
   </script>
 <% end %>

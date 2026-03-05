@@ -74,6 +74,7 @@ class MessagesController < ApplicationController
       response = instructed_llm_instance.ask(@message.content)
 
       @assistant_message = @chat.messages.create(role: "assistant", content: response.content)
+      @chips = generate_chips(@assistant_message.content)
 
       respond_to do |format|
         format.turbo_stream

@@ -59,6 +59,8 @@ class ChatsController < ApplicationController
     @chat    = current_user.chats.find(params[:id])
     @message = Message.new
     @chats   = current_user.chats.order(created_at: :desc).limit(5)
+    last_assistant = @chat.messages.where(role: "assistant").last
+    @chips = last_assistant ? generate_chips(last_assistant.content) : []
   end
 
   def generate_training
