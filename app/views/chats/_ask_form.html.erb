@@ -1,6 +1,5 @@
 <%= simple_form_for [chat, message] do |f| %>
   <div class="input-container">
-    <div class="input-label">Ask a question</div>
     <div class="textarea-wrap">
       <%= f.text_area :content, id: "chatInput", placeholder: "Ask Maestro...", rows: 2, onkeydown: "handleKey(event)" %>
     </div>
@@ -12,7 +11,7 @@
       </div>
       <button type="submit" class="submit-btn">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        Ask LLM
+        send
       </button>
     </div>
   </div>
