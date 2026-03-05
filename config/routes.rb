@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "chats/show"
+  get "pages/profile"
   devise_for :users
 
   authenticated :user do
