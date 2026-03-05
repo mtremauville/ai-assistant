@@ -26,14 +26,16 @@
 
     <%# ── Image ───────────────────────────────────────────────────── %>
     <div class="tl-detail-image">
-      <% if @training.image_url.present? %>
-        <%= image_tag @training.image_url, alt: @training.name, style: "width:100%; height:100%; object-fit:cover; filter:grayscale(30%);" %>
-      <% else %>
-        <div class="tl-img-placeholder">
-          <i class="fa-regular fa-image fa-2x"></i>
-          <span>Exercice Padel</span>
-        </div>
-      <% end %>
+      <% image_src = @training.image_url.presence ||
+           "https://source.unsplash.com/featured/800x450/?padel,sport&sig=#{@training.id}" %>
+      <%= image_tag image_src,
+            alt: @training.name,
+            style: "width:100%; height:100%; object-fit:cover; filter:grayscale(20%) brightness(0.85);",
+            onerror: "this.style.display='none';this.nextElementSibling.style.display='flex';" %>
+      <div class="tl-img-placeholder" style="display:none;">
+        <i class="fa-regular fa-image fa-2x"></i>
+        <span>Exercice Padel</span>
+      </div>
     </div>
 
     <%# ── Info boxes ─────────────────────────────────────────────── %>
@@ -63,7 +65,7 @@
       </div>
       <div class="tl-section-content">
         <% if @training.content.present? %>
-          <%= simple_format(@training.content) %>
+          <%= markdown(@training.content) %>
         <% else %>
           <p style="font-style: italic; opacity: 0.55;">Aucun contenu disponible pour cet exercice.</p>
         <% end %>
@@ -77,7 +79,7 @@
       </div>
       <div class="tl-section-content">
         <% if @training.maestro_conseil.present? %>
-          <%= simple_format("\"#{@training.maestro_conseil}\"") %>
+          <%= markdown("_\"#{@training.maestro_conseil}\"_") %>
         <% else %>
           <p>Ce conseil sera bientôt affiché ici.</p>
         <% end %>

@@ -1,24 +1,47 @@
 class ChatsController < ApplicationController
   HASH_PROMPT = <<-PROMPT
-      # You are an experienced padel coach, specialised in helping padel players of all levels.
+      You are an experienced padel coach, specialised in helping padel players of all levels.
 
-      # I am a padel player who received a training program, and I'm looking to convert it into a list of parameters of the right format
-      # to use in my application.
+      I am a padel player who received a training program, and I'm looking to convert it into a list of parameters of the right format to use in my application.
 
-      # Transform the training program into a hash that can be used directly in an application as parameters to create an instance of a Training object in ruby
+      Transform the training program into a JSON object with the following keys:
+      duration, training_type, team_size, intensity, content, maestro_conseil
 
-      # The format of the response should be like a JSON with the following key value pairs:
-      # duration: a, training_type: b, team_size: c, intensity: d, content: e
-      # Where:
-      #  - a is an integer, and is the number of minutes that the training program lasts in total
-      #  - b is a short strign of max 3 words that describe the focus of the training
-      #  - c is an integer of the number of people for which this training is for
-      #  - d is an integer between 0 and 10 that evaluates the intensity, with highest intensity being 10 and lowest intensity being 0
-      #  - e is a long text, containing ONLY the markdown-formatted part of the message sent by me (the user),
-      #  meaning only the sections with markdown headings (lines starting with # or ##) and their content.
-      #  Do NOT include any introductory sentences, closing remarks, or plain text that appears before or after the markdown block.
-      #  - f is a short motivational advice from you, personalized based on the training content,
-      #    in the same language as the training content, max 2 sentences.
+      Where:
+      - duration: an integer, the total number of minutes the training lasts
+      - training_type: a short string of max 3 words describing the focus of the training
+      - team_size: an integer, the number of people this training is designed for
+      - intensity: an integer between 0 and 10 (0 = lowest, 10 = highest intensity)
+      - content: a rich, detailed markdown document built from the training program.
+        Structure it with the following sections (## for main sections, ### for sub-sections):
+
+        ## Objectif
+        2-3 sentences explaining what this session trains and why it matters tactically.
+
+        ## Matériel
+        Bullet list of required equipment (only if specific gear beyond racket/ball is needed).
+
+        ## Échauffement — X min
+        Numbered list of 3-5 warm-up exercises with brief instructions and durations.
+
+        ## Programme
+        For each exercise block, use a ### sub-heading with the exercise name and duration.
+        Under each sub-heading: numbered steps for execution, then a bullet list of "Points clés" (2-3 coaching cues).
+        Include at least 3-4 exercise blocks with enough detail to fill 1-2 paragraphs each.
+
+        ## Variantes
+        Bullet list of 2-3 progressions or difficulty adjustments (easier / harder versions).
+
+        ## Récupération — X min
+        Short numbered list for cool-down stretches or light exercises.
+
+        Use numbered lists for sequential steps and bullet lists (- ) for tips or options.
+        Be thorough and specific — a coach reading this should be able to run the session without guessing.
+        Do NOT include any introductory sentences or closing remarks outside the markdown structure.
+      - maestro_conseil: a short motivational advice from you, personalized based on the training content,
+        in the same language as the training content, max 2 sentences.
+
+      IMPORTANT: Return ONLY raw JSON, with no markdown code blocks, no ```json, no ``` — just the JSON object.
   PROMPT
 
   def create
@@ -39,25 +62,25 @@ class ChatsController < ApplicationController
   end
 
   def generate_training
-    # get the last message
     @chat = current_user.chats.find(params[:id])
-    last_message = @chat.messages.last
+    parsed = parse_training_from_llm(@chat.messages.last.content)
 
-    llm_instance = RubyLLM.chat
-    #  give prompt context to the llm instance
-    instructed_llm_instance = llm_instance.with_instructions(HASH_PROMPT)
-    #  then give it the content of the user message to generate an adequate answer
-    response = instructed_llm_instance.ask(last_message.content)
-    parsed = JSON.parse(response.content)
     new_training = Training.new(parsed)
-
-    # set default feedback rating
     new_training.feedback_rating = 10
-
     new_training.user = current_user
     new_training.chat = @chat
     new_training.save!
 
     redirect_to trainings_path
+  end
+
+  TRAINING_KEYS = %w[duration training_type team_size intensity content maestro_conseil].freeze
+
+  private
+
+  def parse_training_from_llm(message_content)
+    response = RubyLLM.chat.with_instructions(HASH_PROMPT).ask(message_content)
+    json_str = response.content.gsub(/\A```(?:json)?\n?/, "").gsub(/\n?```\z/, "").strip
+    JSON.parse(json_str).slice(*TRAINING_KEYS)
   end
 end
