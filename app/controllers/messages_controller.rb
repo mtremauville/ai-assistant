@@ -46,6 +46,11 @@ class MessagesController < ApplicationController
     Ending with a realistic competitive challenge
     Goal: Make me feel like a real Spanish court coach is standing next to me correcting my bandeja.
 
+    CRITICAL FORMAT RULE
+    When you generate a full training session plan, you MUST start your response with the exact line:
+    # Training Session Plan
+    This marker is mandatory — do not omit it, do not rephrase it.
+
 
   PROMPT
 
@@ -65,16 +70,15 @@ class MessagesController < ApplicationController
 
       @llm_instance = RubyLLM.chat
       build_conversation_history
-      #  give prompt context to the llm instance
       instructed_llm_instance = @llm_instance.with_instructions(instructions)
-      #  then give it the content of the user message to generate an adequate answer
       response = instructed_llm_instance.ask(@message.content)
 
-      # now that we have our response we create a new message entity that comes from the llm
-      @chat.messages.create(role: "assistant", content: response.content)
+      @assistant_message = @chat.messages.create(role: "assistant", content: response.content)
 
-      # go back to where all messages are
-      redirect_to chat_path(@chat)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to chat_path(@chat) }
+      end
     else
       render "chats/show", status: :unprocessable_entity
     end

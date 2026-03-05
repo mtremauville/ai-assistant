@@ -1,6 +1,5 @@
 <%= simple_form_for [chat, message] do |f| %>
   <div class="input-container">
-    <div class="input-label">Ask a question</div>
     <div class="textarea-wrap">
       <%= f.text_area :content, id: "chatInput", placeholder: "Ask Maestro...", rows: 2, onkeydown: "handleKey(event)" %>
       <button type="submit" class="submit-btn">

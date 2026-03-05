@@ -451,12 +451,123 @@ body:has(.tl-scene) {
 }
 
 .tl-section-content {
-  font-size: 0.87rem;
-  line-height: 1.75;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.8;
   color: #E5E7EB;
 
-  p { margin-bottom: 6px; }
+  // Paragraphes
+  p { margin: 0 0 10px; }
   p:last-child { margin-bottom: 0; }
+
+  // Titres markdown H1 / H2 / H3
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.06em;
+    color: $tr-white;
+    margin: 20px 0 10px;
+    line-height: 1.1;
+    border-bottom: 1px solid $tr-border;
+    padding-bottom: 6px;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: $tr-yellow;
+    margin: 18px 0 8px;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $tr-white;
+    margin: 14px 0 6px;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  // Listes ordonnées et non ordonnées
+  ul, ol {
+    padding-left: 0;
+    margin: 0 0 10px;
+    list-style: none;
+  }
+
+  ul li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 5px;
+
+    &::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: $tr-yellow;
+      font-weight: 700;
+    }
+  }
+
+  ol {
+    counter-reset: step-counter;
+
+    li {
+      position: relative;
+      padding-left: 26px;
+      margin-bottom: 7px;
+      counter-increment: step-counter;
+
+      &::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: $tr-yellow;
+        color: $tr-night;
+        font-size: 0.62rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  // Texte en gras / italique
+  strong { color: $tr-white; font-weight: 600; }
+  em     { color: rgba(245, 245, 240, 0.75); font-style: italic; }
+
+  // Séparateur horizontal
+  hr {
+    border: none;
+    border-top: 1px solid $tr-border;
+    margin: 16px 0;
+  }
+
+  // Code inline
+  code {
+    font-size: 0.78rem;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid $tr-border;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: monospace;
+    color: $tr-yellow;
+  }
 }
 
 // Maestro conseil
