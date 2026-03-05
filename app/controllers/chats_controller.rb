@@ -1,41 +1,22 @@
 class ChatsController < ApplicationController
   HASH_PROMPT = <<-PROMPT
-    You are an experienced padel coach specialised in creating structured training programs for players of all levels.
+      # You are an experienced padel coach, specialised in helping padel players of all levels.
 
-    I need to convert a padel training program into parameters that can be used to create a Training object.
+      # I am a padel player who received a training program, and I'm looking to convert it into a list of parameters of the right format
+      # to use in my application.
 
-    Your task is to analyze the training program I provide and return a structured JSON object that follows the exact format below.
+      # Transform the training program into a hash that can be used directly in an application as parameters to create an instance of a Training object in ruby
 
-    Output format:
-
-    {
-      "duration": a,
-      "training_type": b,
-      "team_size": c,
-      "intensity": d,
-      "content": e
-    }
-
-    Rules:
-
-    - duration (a): an integer representing the total duration of the training in minutes.
-    - training_type (b): a short string (maximum 3 words) describing the main focus of the training.
-    - team_size (c): an integer representing the number of players the training is designed for.
-    - intensity (d): an integer between 0 and 10, where 0 is the lowest intensity and 10 the highest.
-    - content (e): must contain ONLY the Markdown section of the maestro’s message describing the training session.
-
-    Important constraints for content:
-    - Extract ONLY the Markdown training description.
-    - Remove any introduction, explanations, comments, or conversational text.
-    - Keep titles, subtitles, lists, and structure exactly as written in Markdown.
-    - Do not rewrite or summarize the Markdown.
-    - Return the Markdown exactly as it appears.
-
-    Response rules:
-    - Return ONLY the JSON object.
-    - Do not include explanations.
-    - Do not include code blocks.
-
+      # The format of the response should be like a JSON with the following key value pairs:
+      # duration: a, training_type: b, team_size: c, intensity: d, content: e
+      # Where:
+      #  - a is an integer, and is the number of minutes that the training program lasts in total
+      #  - b is a short strign of max 3 words that describe the focus of the training
+      #  - c is an integer of the number of people for which this training is for
+      #  - d is an integer between 0 and 10 that evaluates the intensity, with highest intensity being 10 and lowest intensity being 0
+      #  - e is a long text, containing ONLY the markdown-formatted part of the message sent by me (the user),
+      #  meaning only the sections with markdown headings (lines starting with # or ##) and their content.
+      #  Do NOT include any introductory sentences, closing remarks, or plain text that appears before or after the markdown block.
   PROMPT
 
   def create
