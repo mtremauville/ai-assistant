@@ -295,6 +295,38 @@ body:has(.page-wrapper) {
 .bubble-coach strong { color: #f0c93a; font-weight: 600; }
 .bubble-coach p + p, .bubble-coach p + ol { margin-top: 10px; }
 
+.save-training-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #13172e;
+  background: linear-gradient(135deg, #f0c93a, #d4a820);
+  text-decoration: none;
+  box-shadow: 0 0 14px rgba(240, 201, 58, 0.3), 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  svg {
+    width: 13px;
+    height: 13px;
+    fill: #13172e;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 22px rgba(240, 201, 58, 0.5), 0 5px 14px rgba(0, 0, 0, 0.35);
+    color: #13172e;
+  }
+}
+
 // ── USER BUBBLE ──
 .bubble-user {
   max-width: 480px;

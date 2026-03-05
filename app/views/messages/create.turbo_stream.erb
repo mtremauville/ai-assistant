@@ -1,0 +1,11 @@
+<%= turbo_stream.append "messages-inner" do %>
+  <%= render "messages/message", message: @message %>
+<% end %>
+
+<%= turbo_stream.append "messages-inner" do %>
+  <%= render "messages/message", message: @assistant_message %>
+<% end %>
+
+<%= turbo_stream.replace "new_message_container" do %>
+  <%= render "chats/ask_form", chat: @chat, message: Message.new %>
+<% end %>
