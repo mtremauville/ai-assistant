@@ -3,4 +3,17 @@
   bottom: 16px;
   right: 16px;
   z-index: 1000;
+  border-radius: 2px;
+
+  &.alert-info {
+    color: #1a7a3c !important;
+    border-color: #1a7a3c;
+    background-color: #eafaf1;
+  }
+
+  &.alert-warning {
+    color: #c0392b !important;
+    border-color: #c0392b;
+    background-color: #fdf2f1;
+  }
 }

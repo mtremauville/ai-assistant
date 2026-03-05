@@ -10,3 +10,11 @@
     <%= alert %>
   </div>
 <% end %>
+<script>
+  setTimeout(() => {
+    document.querySelectorAll(".alert").forEach(el => {
+      el.classList.remove("show");
+      setTimeout(() => el.remove(), 500);
+    });
+  }, 5000);
+</script>
