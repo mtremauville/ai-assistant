@@ -1,21 +1,23 @@
 class ChatsController < ApplicationController
   HASH_PROMPT = <<-PROMPT
-      You are an experienced padel coach, specialised in helping padel players of all levels.
+     You are an experienced padel coach, specialised in helping padel players of all levels.
 
-      I am a padel player who received a training program, and I'm looking to convert it into a list of parameters of the right format
-      to use in my application.
+      # I am a padel player who received a training program, and I'm looking to convert it into a list of parameters of the right format
+      # to use in my application.
 
-      Transform the training program into a hash that can be used directly in an application as parameters to create an instance of a Training object in ruby
+      # Transform the training program into a hash that can be used directly in an application as parameters to create an instance of a Training object in ruby
 
-      The format of the response should be like a JSON with the following key value pairs:
-      duration: a, training_type: b, team_size: c, intensity: d, content: e
-      Where:
-       - a is an integer, and is the number of minutes that the training program lasts in total
-       - b is a short strign of max 3 words that describe the focus of the training
-       - c is an integer of the number of people for which this training is for
-       - d is an integer between 0 and 10 that evaluates the intensity, with highest intensity being 10 and lowest intensity being 0
-       - e is a long text, containing exactly the part of the message sent by me (the user)
-       where the training is described in different parts and subtitles
+      # The format of the response should be like a JSON with the following key value pairs:
+      # duration: a, training_type: b, team_size: c, intensity: d, content: e
+      # Where:
+      #  - a is an integer, and is the number of minutes that the training program lasts in total
+      #  - b is a short strign of max 3 words that describe the focus of the training
+      #  - c is an integer of the number of people for which this training is for
+      #  - d is an integer between 0 and 10 that evaluates the intensity, with highest intensity being 10 and lowest intensity being 0
+      #  - e is a long text, containing ONLY the markdown-formatted part of the message sent by me (the user),
+      #meaning only the sections with markdown headings (lines starting with # or ##) and their content.
+      #Do NOT include any introductory sentences, closing remarks, or plain text that appears before or after the markdown block.
+
   PROMPT
 
   def create
