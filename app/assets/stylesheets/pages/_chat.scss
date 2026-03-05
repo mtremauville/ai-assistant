@@ -325,14 +325,15 @@ body:has(.page-wrapper) {
 
 // ── INPUT AREA ──
 .input-section {
-  position: relative;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  backdrop-filter: blur(20px);
-  padding: 20px 24px 24px;
+  flex: 1;
+  padding: 20px;
+  background: transparent;
 }
 
 .input-container {
-  max-width: 760px; margin: 0 auto;
+  width: 100%;
+  max-width: 680px;        /* EXACTEMENT la largeur de .bubble-coach */
+  margin: 0 auto;
 }
 
 .input-label {
@@ -344,13 +345,15 @@ body:has(.page-wrapper) {
 }
 
 .textarea-wrap {
+  position: relative;      /* Pour placer le bouton par rapport à l'input */
+  width: 100%;
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 16px;
   padding: 14px 18px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  position: relative;
+  padding-right: 45px;     /* Espace pour l'icône à droite */
+  box-sizing: border-box;
 
   &:focus-within {
     border-color: rgba(240,201,58,0.4);
@@ -358,14 +361,17 @@ body:has(.page-wrapper) {
   }
 
   textarea {
-    width: 100%; background: none; border: none; outline: none;
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
     font-family: 'Barlow', sans-serif;
-    font-size: 15px; font-weight: 300;
-    color: rgba(255,255,255,0.85);
-    resize: none; min-height: 52px; max-height: 140px;
-    line-height: 1.6; letter-spacing: 0.02em;
-
-    &::placeholder { color: rgba(255,255,255,0.2); }
+    font-size: 15px;
+    color: white;
+    resize: none;
+    min-height: 52px;
+    line-height: 1.6;
+    display: block;        /* Évite les espaces vides en bas */
   }
 }
 
@@ -394,23 +400,25 @@ body:has(.page-wrapper) {
 }
 
 .submit-btn {
-  display: flex; align-items: center; gap: 8px;
-  background: linear-gradient(135deg, #f0c93a, #d4a820);
-  border: none; border-radius: 12px;
-  padding: 12px 26px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: #13172e;
+  position: absolute;      /* Place l'icône DANS le textarea-wrap */
+  bottom: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  box-shadow: 0 0 16px rgba(240,201,58,0.35), 0 4px 12px rgba(0,0,0,0.3);
-  transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
-  flex-shrink: 0;
+  display: flex;
 
-  &:hover {
-    transform: translateY(-1px) scale(1.03);
-    box-shadow: 0 0 24px rgba(240,201,58,0.5), 0 6px 16px rgba(0,0,0,0.35);
+  &:hover { transform: scale(1.1); }
+
+  svg {
+    width: 24px;           /* Taille réduite pour l'intérieur du champ */
+    height: 24px;
+    fill: #f0c93a;
   }
+}
 
-  svg { width: 14px; height: 14px; fill: #13172e; }
+.input-footer {
+  display: flex;
+  margin-top: 12px;
 }
