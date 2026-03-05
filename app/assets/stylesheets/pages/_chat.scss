@@ -41,10 +41,16 @@
 }
 
 // ── PAGE LAYOUT ──
+body:has(.page-wrapper) {
+  main#main-content {
+    padding: 0;
+    margin: 0;
+  }
+}
+
 .page-wrapper {
   display: flex;
   height: calc(100vh - 52px);
-  margin-top: 52px;
   overflow: hidden;
   background: #1a1540;
   font-family: 'Barlow', sans-serif;
@@ -54,11 +60,32 @@
 .sidebar {
   width: 270px;
   flex-shrink: 0;
-  background: rgba(255,255,255,0.025);
-  border-right: 1px solid rgba(255,255,255,0.07);
+  background: linear-gradient(to top, #1a1540 0%, #231D4D 55%, #26205a 100%);
+  border-right: none;
   padding: 28px 20px;
   display: flex; flex-direction: column; gap: 6px;
-  overflow-y: auto;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -10vh; left: -8vw;
+    width: 80%; height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,201,58,0.07) 0%, transparent 65%);
+    pointer-events: none;
+    animation: orb-drift 9s ease-in-out infinite alternate;
+  }
+
+  &::-webkit-scrollbar { width: 3px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+}
+
+@keyframes orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-20px, 30px) scale(1.05); }
 }
 
 .sidebar-spacer { flex: 1; min-height: 16px; }
@@ -123,11 +150,13 @@
 }
 
 .sidebar-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: #E5E7EB;
-  margin-bottom: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  color: #f5f5f0;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  line-height: 1.1;
 }
 
 .sidebar-item {
@@ -298,7 +327,6 @@
 .input-section {
   position: relative;
   border-top: 1px solid rgba(255,255,255,0.07);
-  background: rgba(19,23,46,0.70);
   backdrop-filter: blur(20px);
   padding: 20px 24px 24px;
 }

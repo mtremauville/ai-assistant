@@ -1,17 +1,6 @@
-<% content_for(:hide_navbar, true) %>
-
 <% content_for :head do %>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <% end %>
-
-<nav class="chat-nav">
-  <div class="nav-brand">Padel Maestro</div>
-  <div class="nav-links">
-    <a href="#">Chatbot</a>
-    <div class="nav-sep"></div>
-    <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete } %>
-  </div>
-</nav>
 
 <div class="page-wrapper">
 
@@ -41,7 +30,6 @@
       <div class="messages-inner">
 
         <div>
-          <div class="page-heading">Chats › show</div>
           <div class="chat-title"><%= @chat.title %></div>
         </div>
 
