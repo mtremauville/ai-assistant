@@ -17,6 +17,8 @@ class ChatsController < ApplicationController
       #  - e is a long text, containing ONLY the markdown-formatted part of the message sent by me (the user),
       #  meaning only the sections with markdown headings (lines starting with # or ##) and their content.
       #  Do NOT include any introductory sentences, closing remarks, or plain text that appears before or after the markdown block.
+      #  - f is a short motivational advice from you, personalized based on the training content,
+      #    in the same language as the training content, max 2 sentences.
   PROMPT
 
   def create
