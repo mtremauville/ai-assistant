@@ -1,15 +1,94 @@
-<div>
-  <div class="row">
-    <div class="col-8">
-      <h1>Profile</h1>
-      <div>
-        <h2>
+<div class="profile-bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-xl-8">
 
-        </h2>
+        <div class="profile-card">
+
+          <div class="d-flex align-items-start justify-content-between mb-2">
+            <h1 class="profile-title">Habib</h1>
+            <%= link_to "Edit profile", edit_user_registration_path, class: "profile-save-btn align-self-center" %>
+          </div>
+
+          <div class="row align-items-stretch g-4">
+
+            <%# ── Left: champs ──────────────────────────────────────────────── %>
+            <div class="col-md-6 d-flex flex-column justify-content-center">
+
+              <div class="profile-field">
+                <p class="profile-field__label">E-mail</p>
+                <div class="profile-field__value"><%= current_user.email %></div>
+              </div>
+
+              <div class="profile-field">
+                <p class="profile-field__label">Password</p>
+                <div class="profile-field__value">••••••••</div>
+              </div>
+
+              <div class="profile-field">
+                <p class="profile-field__label">Height</p>
+                <div class="profile-field__value"><%= current_user.height %></div>
+              </div>
+
+              <div class="profile-field">
+                <p class="profile-field__label">Weight</p>
+                <div class="profile-field__value"><%= current_user.weight %></div>
+              </div>
+
+            </div>
+
+            <%# ── Right: avatar + stats padel ──────────────────────────────── %>
+            <div class="col-md-6 profile-right-col">
+
+              <div class="profile-avatar">
+                <img src="https://images.pexels.com/photos/4536850/pexels-photo-4536850.jpeg"
+                     alt="Profile photo"
+                     class="profile-avatar__img">
+                <div class="profile-avatar__camera">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#231D4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="profile-level">
+                <div class="profile-level__header">
+                  <span class="profile-level__label">Padel Level</span>
+                  <span class="profile-level__number"><%= current_user.padel_level %> / 7</span>
+                </div>
+                <div class="profile-level__bar">
+                  <% 7.times do |i| %>
+                    <div class="profile-level__segment <%= i < current_user.padel_level.to_i ? 'active' : '' %>"></div>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="profile-hand">
+                <p class="profile-hand__label">Hand Position</p>
+                <div class="profile-hand__options">
+                  <% hand = current_user.hand_position&.downcase %>
+                  <div class="profile-hand__option <%= hand == 'left' || hand == 'both' ? 'active' : '' %>">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10V5a2 2 0 0 0-4 0v9M6 10a2 2 0 0 0-4 0v4a8 8 0 0 0 16 0v-5a2 2 0 0 0-4 0"/>
+                    </svg>
+                    <span>Left</span>
+                  </div>
+                  <div class="profile-hand__option <%= hand == 'right' || hand == 'both' ? 'active' : '' %>">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="transform: scaleX(-1)">
+                      <path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10V5a2 2 0 0 0-4 0v9M6 10a2 2 0 0 0-4 0v4a8 8 0 0 0 16 0v-5a2 2 0 0 0-4 0"/>
+                    </svg>
+                    <span>Right</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
       </div>
-    </div>
-    <div class="col-4">
-
     </div>
   </div>
 </div>
