@@ -1,60 +1,69 @@
 <div class="profile-bg">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-9 col-xl-8">
+      <div class="col-lg-7 col-xl-6">
+        <div class="tl-detail-inner profile-inner">
 
-        <div class="profile-card">
-
-          <div class="d-flex align-items-start justify-content-between mb-2">
-            <h1 class="profile-title">Habib</h1>
-            <%= link_to "Edit profile", edit_user_registration_path, class: "profile-save-btn align-self-center" %>
+          <%# ── Header : avatar + username + crayon ───────────────────────── %>
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="profile-avatar-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M 4.5 7 C 9.5 7 9.5 17 4.5 17"/>
+                <path d="M 19.5 7 C 14.5 7 14.5 17 19.5 17"/>
+              </svg>
+            </div>
+            <h1 class="tl-detail-title mb-0"><%= current_user.username %></h1>
+            <%= link_to edit_user_registration_path, class: "profile-edit-btn", title: "Edit profile" do %>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            <% end %>
           </div>
 
-          <div class="row align-items-stretch g-4">
-
-            <%# ── Left: champs ──────────────────────────────────────────────── %>
-            <div class="col-md-6 d-flex flex-column justify-content-center">
-
-              <div class="profile-field">
-                <p class="profile-field__label">E-mail</p>
-                <div class="profile-field__value"><%= current_user.email %></div>
-              </div>
-
-              <div class="profile-field">
-                <p class="profile-field__label">Password</p>
-                <div class="profile-field__value">••••••••</div>
-              </div>
-
-              <div class="profile-field">
-                <p class="profile-field__label">Height</p>
-                <div class="profile-field__value"><%= current_user.height %></div>
-              </div>
-
-              <div class="profile-field">
-                <p class="profile-field__label">Weight</p>
-                <div class="profile-field__value"><%= current_user.weight %></div>
-              </div>
-
+          <%# ── Row 1 : height + weight + age + gender ───────────────────── %>
+          <div class="profile-info-row mb-2">
+            <div class="tl-info-box">
+              <div class="tl-info-label">Height</div>
+              <div class="tl-info-value"><%= current_user.height %></div>
             </div>
-
-            <%# ── Right: avatar + stats padel ──────────────────────────────── %>
-            <div class="col-md-6 profile-right-col">
-
-              <div class="profile-avatar">
-                <img src="https://images.pexels.com/photos/4536850/pexels-photo-4536850.jpeg"
-                     alt="Profile photo"
-                     class="profile-avatar__img">
-                <div class="profile-avatar__camera">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#231D4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                    <circle cx="12" cy="13" r="4"/>
-                  </svg>
-                </div>
+            <div class="tl-info-box">
+              <div class="tl-info-label">Weight</div>
+              <div class="tl-info-value"><%= current_user.weight %></div>
+            </div>
+            <div class="tl-info-box">
+              <div class="tl-info-label">Age</div>
+              <div class="tl-info-value"><%= current_user.age %></div>
+            </div>
+            <div class="tl-info-box">
+              <div class="tl-info-label">Gender</div>
+              <div class="tl-info-value profile-gender profile-gender--<%= current_user.gender %>">
+                <%= current_user.gender&.capitalize %>
               </div>
+            </div>
+          </div>
 
+          <%# ── Row 2 : email + password ───────────────────────────────────── %>
+          <div class="profile-contact-row mb-2">
+            <div class="tl-info-box">
+              <div class="tl-info-label">Email</div>
+              <div class="tl-info-value profile-info-truncate"><%= current_user.email %></div>
+            </div>
+            <div class="tl-info-box">
+              <div class="tl-info-label">Password</div>
+              <div class="tl-info-value">••••••••</div>
+            </div>
+          </div>
+
+          <%# ── Row 3 : padel level + hand position ────────────────────────── %>
+          <% hand = current_user.hand_position&.downcase %>
+          <div class="profile-sections-row">
+            <div class="tl-section">
+              <div class="tl-section-title">Padel Level</div>
               <div class="profile-level">
                 <div class="profile-level__header">
-                  <span class="profile-level__label">Padel Level</span>
+                  <span></span>
                   <span class="profile-level__number"><%= current_user.padel_level %> / 7</span>
                 </div>
                 <div class="profile-level__bar">
@@ -63,28 +72,24 @@
                   <% end %>
                 </div>
               </div>
-
+            </div>
+            <div class="tl-section">
+              <div class="tl-section-title">Hand Position</div>
               <div class="profile-hand">
-                <p class="profile-hand__label">Hand Position</p>
-                <div class="profile-hand__options">
-                  <% hand = current_user.hand_position&.downcase %>
-                  <div class="profile-hand__option <%= hand == 'left' || hand == 'both' ? 'active' : '' %>">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10V5a2 2 0 0 0-4 0v9M6 10a2 2 0 0 0-4 0v4a8 8 0 0 0 16 0v-5a2 2 0 0 0-4 0"/>
-                    </svg>
-                    <span>Left</span>
-                  </div>
-                  <div class="profile-hand__option <%= hand == 'right' || hand == 'both' ? 'active' : '' %>">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="transform: scaleX(-1)">
-                      <path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10V5a2 2 0 0 0-4 0v9M6 10a2 2 0 0 0-4 0v4a8 8 0 0 0 16 0v-5a2 2 0 0 0-4 0"/>
-                    </svg>
-                    <span>Right</span>
-                  </div>
+                <div class="profile-hand__option <%= hand == 'left' || hand == 'both' ? 'active' : '' %>">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10V5a2 2 0 0 0-4 0v9M6 10a2 2 0 0 0-4 0v4a8 8 0 0 0 16 0v-5a2 2 0 0 0-4 0"/>
+                  </svg>
+                  <span>Left</span>
+                </div>
+                <div class="profile-hand__option <%= hand == 'right' || hand == 'both' ? 'active' : '' %>">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="transform: scaleX(-1)">
+                    <path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10V5a2 2 0 0 0-4 0v9M6 10a2 2 0 0 0-4 0v4a8 8 0 0 0 16 0v-5a2 2 0 0 0-4 0"/>
+                  </svg>
+                  <span>Right</span>
                 </div>
               </div>
-
             </div>
-
           </div>
 
         </div>

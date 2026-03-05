@@ -66,34 +66,60 @@
           <div class="field-row">
             <div class="field-wrap" style="animation-delay:0.34s">
               <div class="signup-field">
-                <label>Age <span class="required">*</span></label>
-                <%= f.number_field :age, class: "signup-input", placeholder: "28", min: 1 %>
+                <label>Username <span class="required">*</span></label>
+                <%= f.text_field :username, class: "signup-input", placeholder: "John" %>
               </div>
             </div>
             <div class="field-wrap" style="animation-delay:0.38s">
               <div class="signup-field">
-                <label>Level (1–10) <span class="required">*</span></label>
-                <%= f.number_field :padel_level, class: "signup-input", placeholder: "3", min: 1, max: 10, step: 1 %>
+                <label>Age <span class="required">*</span></label>
+                <%= f.number_field :age, class: "signup-input", placeholder: "28", min: 1 %>
               </div>
             </div>
           </div>
 
+          <div class="field-wrap hand-wrap" style="animation-delay:0.42s">
+            <label class="signup-label">Gender</label>
+            <div class="hand-options">
+              <% ["Male", "Female", "Other"].each do |option| %>
+                <label class="hand-option">
+                  <%= f.radio_button :gender, option.downcase %>
+                  <span><%= option %></span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
           <div class="field-row">
-            <div class="field-wrap" style="animation-delay:0.42s">
+            <div class="field-wrap" style="animation-delay:0.46s">
               <div class="signup-field">
                 <label>Weight (kg) <span class="required">*</span></label>
                 <%= f.number_field :weight, class: "signup-input", placeholder: "75", min: 1 %>
               </div>
             </div>
-            <div class="field-wrap" style="animation-delay:0.46s">
+            <div class="field-wrap" style="animation-delay:0.50s">
               <div class="signup-field">
                 <label>Height (cm) <span class="required">*</span></label>
                 <%= f.number_field :height, class: "signup-input", placeholder: "180", min: 1 %>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="field-wrap hand-wrap" style="animation-delay:0.52s">
+        <!-- Padel stats -->
+        <div class="form-section">
+          <span class="form-section-label">Padel stats</span>
+
+          <div class="field-row">
+            <div class="field-wrap" style="animation-delay:0.54s">
+              <div class="signup-field">
+                <label>Level (1–7) <span class="required">*</span></label>
+                <%= f.number_field :padel_level, class: "signup-input", placeholder: "3", min: 1, max: 7, step: 0.5 %>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-wrap hand-wrap" style="animation-delay:0.58s">
             <label class="signup-label">Playing hand <span class="required">*</span></label>
             <div class="hand-options">
               <% ["Left", "Right", "Both"].each do |option| %>
