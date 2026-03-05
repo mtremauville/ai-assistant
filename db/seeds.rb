@@ -31,6 +31,17 @@ bob = User.create!(
   hand_position: "Left"
 )
 
+habib = User.create!(
+  email: "habib@padel.com",
+  password: "croissant",
+  password_confirmation: "croissant",
+  age: 23,
+  height: 190,
+  weight: 60.0,
+  padel_level: 4.5,
+  hand_position: "Left"
+)
+
 puts "Creating chat..."
 chat = Chat.create!(
   user: alice,
@@ -38,8 +49,8 @@ chat = Chat.create!(
 )
 
 puts "Creating messages..."
-Message.create!(chat: chat, role: "user",      content: "Peux-tu analyser mes dernières séances d'entraînement ?")
-Message.create!(chat: chat, role: "assistant", content: "Bien sûr ! D'après tes séances, tu as progressé en intensité. Continue sur cette lancée et pense à varier les exercices.")
+Message.create!(chat: chat, role: "user",      content: "Test message user")
+Message.create!(chat: chat, role: "assistant", content: "Test response assistant")
 
 puts "Creating trainings..."
 Training.create!(
@@ -65,13 +76,13 @@ Training.create!(
   intensity: 7,
   team_size: 1,
   feedback_rating: 9,
-  image_url: nil,
+  image_url: "https://padelmagazine.fr/wp-content/uploads/2022/12/Fiona-Ligi-bandeja-France-septembre-2022.jpg.webp",
   content: "1. Position de départ : Placez-vous au filet, en position de volée haute, raquette devant vous.\n\n2. L'exercice : Le partenaire envoie des balles variées depuis le fond du court. Votre objectif est de placer chaque volée dans les coins, en variant les angles.\n\n3. Objectif : Empêcher l'adversaire de lober en anticipant sa trajectoire et en fermant les angles.",
   maestro_conseil: "Ne cherchez pas la puissance — cherchez le placement. Une volée bien placée à 1 mètre du filet dans le couloir vaut mieux qu'un smash raté. Gardez les poignets fermes et utilisez le rebond de la raquette."
 )
 
 Training.create!(
-  user: alice,
+  user: habib,
   chat: chat,
   name: "La Bandeja Chirurgicale",
   training_type: "Smash",
@@ -79,7 +90,7 @@ Training.create!(
   intensity: 8,
   team_size: 4,
   feedback_rating: 8,
-  image_url: nil,
+  image_url: "https://padelmagazine.fr/wp-content/uploads/2021/03/Twenty-By-Ten-stage-photo-groupe.jpg.webp",
   content: "1. Mise en place : Deux joueurs au fond, deux au filet. Les joueurs du fond s'entraînent à la bandeja en alternance.\n\n2. L'exercice : Lorsqu'une balle haute arrive, effectuez une bandeja en visant la bande latérale, avec une trajectoire plongeante et précise.\n\n3. Rotation : Après chaque bandeja, le joueur retourne en position de défense. Rotation toutes les 10 frappes.",
   maestro_conseil: "La bandeja n'est pas un smash — c'est un coup de contrôle. Visez à frapper la balle légèrement en avant de votre corps, avec un mouvement de haut en bas. L'objectif est de forcer l'adversaire à la faute par la trajectoire, pas par la puissance."
 )
@@ -93,9 +104,24 @@ Training.create!(
   intensity: 5,
   team_size: 2,
   feedback_rating: 7,
-  image_url: nil,
+  image_url: "https://www.setetmatch.net/media/catalog/product/cache/4c28e3904e6a830a72278803d88046d4/2/2/222054-2.jpeg",
   content: "1. Échauffement : 5 minutes d'échanges en slice depuis le fond du court.\n\n2. L'exercice : En situation de jeu, chaque coup de fond doit être joué en slice, en visant les pieds de l'adversaire au filet.\n\n3. Variante avancée : Alterner slice court (qui tombe proche du filet) et slice long (qui glisse vers la vitre de fond).",
   maestro_conseil: "Le slice est une arme défensive et offensive à la fois. Travaillez à ouvrir la face de raquette juste avant l'impact pour donner un effet coupé maximal. Un bon slice bas oblige l'adversaire à jouer une volée basse difficile à conclure."
 )
+
+Training.create!(
+  user: habib,
+  chat: chat,
+  name: "Le Maître du Slice",
+  training_type: "Technique",
+  duration: 60,
+  intensity: 5,
+  team_size: 2,
+  feedback_rating: 7,
+  image_url: "https://padelmagazine.fr/wp-content/uploads/2021/04/Sergio-Alba-bandeja-world-padel-tour.jpg.webp",
+  content: "1. Échauffement : 5 minutes d'échanges en slice depuis le fond du court.\n\n2. L'exercice : En situation de jeu, chaque coup de fond doit être joué en slice, en visant les pieds de l'adversaire au filet.\n\n3. Variante avancée : Alterner slice court (qui tombe proche du filet) et slice long (qui glisse vers la vitre de fond).",
+  maestro_conseil: "Le slice est une arme défensive et offensive à la fois. Travaillez à ouvrir la face de raquette juste avant l'impact pour donner un effet coupé maximal. Un bon slice bas oblige l'adversaire à jouer une volée basse difficile à conclure."
+)
+
 
 puts "Done! #{User.count} users, #{Chat.count} chat, #{Message.count} messages, #{Training.count} trainings."
