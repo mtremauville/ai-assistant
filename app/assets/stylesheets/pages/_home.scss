@@ -143,7 +143,7 @@ body.home-page {
     font-size: 0.65rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: rgba(245, 245, 240, 0.4);
+    color: #E5E7EB;
     margin-top: 4px;
     transition: color var(--transition);
   }
@@ -264,7 +264,7 @@ body.home-page {
     font-size: 0.72rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(245, 245, 240, 0.4);
+    color: #E5E7EB;
     margin: 0;
   }
 }
@@ -284,7 +284,7 @@ body.home-page {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: rgba(245, 245, 240, 0.3);
+  color: #E5E7EB;
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -381,11 +381,11 @@ body.home-page {
   font-size: 0.62rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(10, 10, 10, 0.38);
+  color: rgba(35, 29, 77, 0.9);
   margin-bottom: 20px;
   transition: color 0.2s ease;
 
-  &:hover { color: rgba(10, 10, 10, 0.7); }
+  &:hover { color: var(--night); }
 }
 
 .login-title {
@@ -399,7 +399,7 @@ body.home-page {
 
 .login-sub {
   font-size: 0.73rem;
-  color: rgba(10, 10, 10, 0.4);
+  color: rgba(35, 29, 77, 0.9);
   letter-spacing: 0.06em;
   margin-bottom: 28px;
 }
@@ -415,7 +415,7 @@ body.home-page {
   font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(10, 10, 10, 0.42);
+  color: rgba(35, 29, 77, 0.9);
 }
 
 .login-input {
@@ -438,13 +438,13 @@ body.home-page {
   display: block;
   text-align: right;
   font-size: 0.64rem;
-  color: rgba(10, 10, 10, 0.35);
+  color: rgba(35, 29, 77, 0.9);
   text-decoration: none;
   margin-top: -2px;
   margin-bottom: 18px;
   transition: color 0.2s ease;
 
-  &:hover { color: rgba(10, 10, 10, 0.6); }
+  &:hover { color: var(--night); }
 }
 
 .login-submit {
@@ -469,7 +469,7 @@ body.home-page {
   margin-top: 16px;
   text-align: center;
   font-size: 0.68rem;
-  color: rgba(10, 10, 10, 0.36);
+  color: rgba(35, 29, 77, 0.9);
 
   a {
     color: var(--night);
