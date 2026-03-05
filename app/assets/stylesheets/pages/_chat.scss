@@ -204,6 +204,75 @@ body:has(.page-wrapper) {
   position: relative;
   overflow: hidden;
   background: linear-gradient(160deg, #1a1540 0%, #231D4D 55%, #26205a 100%);
+  padding-bottom: 32px;
+
+  &.chat-empty {
+    .messages-wrap {
+      flex: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .chat-bottom-group {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+}
+
+// ── BOTTOM GROUP (welcome + input) ──
+.chat-bottom-group {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+// ── WELCOME MESSAGE ──
+.welcome-wrap {
+  text-align: center;
+  padding: 0 24px 28px;
+  animation: welcomeFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.welcome-greeting {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.welcome-name {
+  color: #f0c93a;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f0c93a, transparent);
+    border-radius: 1px;
+  }
+}
+
+.welcome-sub {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.02em;
+}
+
+@keyframes welcomeFadeIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 // ── MESSAGES SCROLL AREA ──
@@ -357,9 +426,9 @@ body:has(.page-wrapper) {
 
 // ── INPUT AREA ──
 .input-section {
-  flex: 1;
   padding: 20px;
   background: transparent;
+  flex-shrink: 0;
 }
 
 .input-container {
@@ -414,6 +483,16 @@ body:has(.page-wrapper) {
 
 .quick-chips {
   display: flex; gap: 8px; flex-wrap: wrap;
+
+  &.chips-above {
+    margin-bottom: 10px;
+    animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .chip {
@@ -450,7 +529,3 @@ body:has(.page-wrapper) {
   }
 }
 
-.input-footer {
-  display: flex;
-  margin-top: 12px;
-}

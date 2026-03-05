@@ -1,17 +1,17 @@
 <%= simple_form_for [chat, message] do |f| %>
   <div class="input-container">
+    <% if local_assigns[:chips].present? %>
+      <div class="quick-chips chips-above">
+        <% chips.each do |chip| %>
+          <span class="chip" onclick="fillInput(this)"><%= chip %></span>
+        <% end %>
+      </div>
+    <% end %>
     <div class="textarea-wrap">
       <%= f.text_area :content, id: "chatInput", placeholder: "Ask Maestro...", rows: 2, onkeydown: "handleKey(event)" %>
       <button type="submit" class="submit-btn">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
-    </div>
-    <div class="input-footer">
-      <div class="quick-chips">
-        <span class="chip" onclick="fillInput(this)">Tactical drills</span>
-        <span class="chip" onclick="fillInput(this)">Physical prep</span>
-        <span class="chip" onclick="fillInput(this)">Match strategy</span>
-      </div>
     </div>
   </div>
 <% end %>
@@ -20,11 +20,14 @@
   function fillInput(el) {
     document.getElementById('chatInput').value = el.textContent.trim();
     document.getElementById('chatInput').focus();
+    el.closest('.quick-chips')?.remove();
   }
 
   function handleKey(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
+      // Clear chips on submit
+      document.querySelector('.quick-chips')?.remove();
       e.target.closest('form').requestSubmit();
     }
   }
