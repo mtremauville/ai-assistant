@@ -7,7 +7,7 @@ $nav-h: 52px;
   justify-content: space-between;
   padding: 0 28px;
   background: #1a1540;
-  border-bottom: 1px solid rgba(245, 245, 240, 0.06);
+  border-bottom: 1px solid rgba(244, 208, 63, 0.45);
 
   &__logo {
     font-family: 'Bebas Neue', sans-serif;
@@ -26,20 +26,29 @@ $nav-h: 52px;
     font-size: 0.6rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(245, 245, 240, 0.45);
+    color: #f5f5f0;
     text-decoration: none;
     transition: color 0.2s ease;
 
     &:hover { color: #f5f5f0; }
 
+    &--active {
+      color: #F4D03F;
+      border-bottom: 2px solid #F4D03F;
+      padding-bottom: 2px;
+
+      &:hover { color: #F4D03F; }
+    }
+
     &--logout {
       padding: 5px 14px;
       border: 1px solid rgba(245, 245, 240, 0.12);
       border-radius: 2px;
+      color: rgba(245, 245, 240, 0.45);
 
       &:hover {
         border-color: rgba(245, 245, 240, 0.3);
-        color: #f5f5f0;
+        color: rgba(245, 245, 240, 0.7);
       }
     }
   }

@@ -5,11 +5,10 @@
 
     <div>
       <p class="tl-eyebrow">An AI Chatbot Trainer · The Maestro of Padel</p>
-      <h1 class="tl-brand">Padel<br>Maestro</h1>
+      <h1 class="tl-brand">Bibliothèque d'exercices</h1>
     </div>
 
     <div class="tl-library-header">
-      <span class="tl-library-label">Bibliothèque d'exercices</span>
       <span class="tl-library-count"><%= @trainings.count %> exercice<%= @trainings.count > 1 ? "s" : "" %></span>
     </div>
 
@@ -43,7 +42,7 @@
                     },
                     class: "tl-open-btn" %>
 
-              <div class="tl-intensity">
+              <div class="tl-intensity" aria-label="Intensité : <%= training.intensity %> sur 10">
                 <% 10.times do |i| %>
                   <span class="tl-intensity-dot <%= i < training.intensity ? 'active' : '' %>"></span>
                 <% end %>
@@ -54,7 +53,7 @@
         <% end %>
       </div>
     <% else %>
-      <div style="text-align:center; margin-top: 40px; color: rgba(245,245,240,0.3);">
+      <div style="text-align:center; margin-top: 40px; color: #E5E7EB;">
         <i class="fa-solid fa-dumbbell fa-2x" style="margin-bottom: 12px; display:block;"></i>
         <p style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;">
           Aucun exercice pour le moment

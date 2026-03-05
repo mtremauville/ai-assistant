@@ -1,5 +1,11 @@
 // Define variables for your color scheme
 
+// ── Keyboard focus accessibility ──
+*:focus-visible {
+  outline: 3px solid #FCD34D;
+  outline-offset: 2px;
+}
+
 // For example:
 $red: #FD1015;
 $blue: #0D6EFD;

@@ -30,7 +30,7 @@
     a {
       font-family: 'Barlow', sans-serif;
       font-size: 11px; font-weight: 400;
-      color: rgba(255,255,255,0.55);
+      color: #E5E7EB;
       text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase;
       transition: color 0.2s;
       &:hover { color: #f0c93a; }
@@ -98,7 +98,7 @@
   padding: 10px 14px;
   border-radius: 10px;
   font-size: 12px; font-weight: 500;
-  color: rgba(255,255,255,0.45);
+  color: #E5E7EB;
   cursor: pointer;
   background: transparent;
   border: 1px solid rgba(255,255,255,0.07);
@@ -115,9 +115,9 @@
   }
 
   &:hover {
-    background: rgba(240,201,58,0.07);
-    border-color: rgba(240,201,58,0.22);
-    color: rgba(255,255,255,0.75);
+    background: rgba(240,201,58,0.14);
+    border-color: rgba(240,201,58,0.40);
+    color: #E5E7EB;
     svg { fill: #f0c93a; }
   }
 }
@@ -126,7 +126,7 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 11px; font-weight: 700;
   letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  color: #E5E7EB;
   margin-bottom: 10px;
 }
 
@@ -135,12 +135,12 @@
   padding: 10px 14px;
   border-radius: 10px;
   font-size: 14px; font-weight: 400;
-  color: rgba(255,255,255,0.6);
+  color: #E5E7EB;
   cursor: pointer; transition: all 0.2s;
   border: 1px solid transparent;
   text-decoration: none;
 
-  &:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); }
+  &:hover { background: rgba(255,255,255,0.10); color: #E5E7EB; }
   &.active {
     background: rgba(240,201,58,0.10);
     border-color: rgba(240,201,58,0.25);
@@ -153,7 +153,7 @@
   padding: 10px 14px;
   border-radius: 10px;
   font-size: 13px; font-weight: 500;
-  color: rgba(255,255,255,0.7);
+  color: #E5E7EB;
   cursor: pointer;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.10);
@@ -202,7 +202,7 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 13px; font-weight: 700;
   letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: #E5E7EB;
   margin-bottom: 6px;
 }
 
@@ -355,7 +355,7 @@
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: 20px; padding: 6px 14px;
   font-size: 13px; font-weight: 400;
-  color: rgba(255,255,255,0.5);
+  color: #E5E7EB;
   cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
 
   &:hover {
