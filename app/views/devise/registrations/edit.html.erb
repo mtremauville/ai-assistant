@@ -1,35 +1,132 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="profile-bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-xl-6">
+        <div class="tl-detail-inner profile-inner">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+          <%# ── Header ────────────────────────────────────────────────────── %>
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="profile-avatar-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M 4.5 7 C 9.5 7 9.5 17 4.5 17"/>
+                <path d="M 19.5 7 C 14.5 7 14.5 17 19.5 17"/>
+              </svg>
+            </div>
+            <h1 class="tl-detail-title mb-0">Edit profile</h1>
+            <%= link_to pages_profile_path, class: "profile-edit-btn", title: "Back to profile" do %>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+              </svg>
+            <% end %>
+          </div>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+            <% if resource.errors.any? %>
+              <div class="signup-errors mb-3">
+                <% resource.errors.full_messages.each do |msg| %>
+                  <p><%= msg %></p>
+                <% end %>
+              </div>
+            <% end %>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+            <%# ── Credentials ─────────────────────────────────────────────── %>
+            <div class="tl-section mb-3">
+              <div class="tl-section-title">Credentials</div>
+              <div class="tl-info-box profile-edit-box mb-2">
+                <div class="tl-info-label">Email</div>
+                <%= f.email_field :email, class: "profile-edit-input profile-info-truncate", autocomplete: "email" %>
+              </div>
+              <div class="profile-contact-row">
+                <div class="tl-info-box profile-edit-box">
+                  <div class="tl-info-label">New password</div>
+                  <%= f.password_field :password, class: "profile-edit-input", placeholder: "leave blank to keep", autocomplete: "new-password" %>
+                </div>
+                <div class="tl-info-box profile-edit-box">
+                  <div class="tl-info-label">Current password <span style="color: rgba(244,208,63,0.6)">*</span></div>
+                  <%= f.password_field :current_password, class: "profile-edit-input", placeholder: "required to save changes", autocomplete: "current-password" %>
+                </div>
+              </div>
+            </div>
+
+            <%# ── Player profile ──────────────────────────────────────────── %>
+            <div class="tl-section mb-3">
+              <div class="tl-section-title">Player profile</div>
+              <div class="tl-info-box profile-edit-box mb-2">
+                <div class="tl-info-label">Username</div>
+                <%= f.text_field :username, class: "profile-edit-input", placeholder: "John" %>
+              </div>
+              <div class="profile-info-row">
+                <div class="tl-info-box profile-edit-box">
+                  <div class="tl-info-label">Weight (kg)</div>
+                  <%= f.number_field :weight, class: "profile-edit-input", placeholder: "75", min: 1 %>
+                </div>
+                <div class="tl-info-box profile-edit-box">
+                  <div class="tl-info-label">Height (cm)</div>
+                  <%= f.number_field :height, class: "profile-edit-input", placeholder: "180", min: 1 %>
+                </div>
+                <div class="tl-info-box profile-edit-box">
+                  <div class="tl-info-label">Age</div>
+                  <%= f.number_field :age, class: "profile-edit-input", placeholder: "25", min: 1 %>
+                </div>
+                <div class="tl-info-box profile-edit-box">
+                  <div class="tl-info-label">Gender</div>
+                  <div class="profile-hand" style="gap: 4px; margin-top: 4px;">
+                    <% ["male", "female", "other"].each do |option| %>
+                      <label class="profile-hand__option <%= resource.gender == option ? 'active' : '' %>" style="padding: 4px 6px;">
+                        <%= f.radio_button :gender, option, class: "d-none" %>
+                        <span><%= option.capitalize %></span>
+                      </label>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <%# ── Padel stats ─────────────────────────────────────────────── %>
+            <div class="tl-section mb-3">
+              <div class="tl-section-title">Padel stats</div>
+              <div class="profile-sections-row">
+                <div>
+                  <div class="tl-info-label mb-1">Padel Level</div>
+                  <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <%= f.number_field :padel_level, class: "profile-edit-input", placeholder: "3", min: 1, max: 7, step: 0.5, style: "width: 48px;" %>
+                    <span class="profile-level__number" style="font-size: 1rem;">/ 7</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="tl-info-label mb-1">Hand Position</div>
+                  <div class="profile-hand">
+                    <% ["Left", "Right", "Both"].each do |option| %>
+                      <label class="profile-hand__option <%= resource.hand_position == option ? 'active' : '' %>">
+                        <%= f.radio_button :hand_position, option, class: "d-none" %>
+                        <span><%= option %></span>
+                      </label>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="tl-open-btn w-100 text-center">Save changes</button>
+
+          <% end %>
+
+          <script>
+            document.querySelectorAll('.profile-hand').forEach(function(group) {
+              group.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                  group.querySelectorAll('.profile-hand__option').forEach(function(opt) {
+                    opt.classList.toggle('active', opt.contains(radio));
+                  });
+                });
+              });
+            });
+          </script>
+
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>

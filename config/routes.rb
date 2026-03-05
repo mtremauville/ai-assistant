@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get "chats/show"
   devise_for :users
+  get "chats/show"
+  get "pages/profile"
 
   authenticated :user do
     root to: "trainings#index", as: :authenticated_root

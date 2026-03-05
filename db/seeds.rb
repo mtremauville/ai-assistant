@@ -13,33 +13,42 @@ alice = User.create!(
   email: "alice@padel.com",
   password: "password123",
   password_confirmation: "password123",
+  username: "Alice",
   age: 28,
   height: 168,
   weight: 62.5,
   padel_level: 3.5,
-  hand_position: "Right"
+  hand_position: "Right",
+  gender: "female",
+  avatar_url: "https://images.pexels.com/photos/4536850/pexels-photo-4536850.jpeg"
 )
 
 bob = User.create!(
   email: "bob@padel.com",
   password: "password123",
   password_confirmation: "password123",
+  username: "Bob",
   age: 35,
   height: 182,
   weight: 80.0,
   padel_level: 5.0,
-  hand_position: "Left"
+  hand_position: "Left",
+  gender: "male",
+  avatar_url: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg"
 )
 
 habib = User.create!(
   email: "habib@padel.com",
   password: "croissant",
   password_confirmation: "croissant",
+  username: "Habib",
   age: 23,
   height: 190,
   weight: 60.0,
   padel_level: 4.5,
-  hand_position: "Left"
+  hand_position: "Left",
+  gender: "male",
+  avatar_url: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
 )
 
 puts "Creating chat..."

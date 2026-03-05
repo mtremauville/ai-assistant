@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   validates :email, :password, :padel_level, :age, presence: true
   validates :hand_position, inclusion: { in: ["Left", "Right", "Both"] }
+  validates :gender, inclusion: { in: ["male", "female", "other"] }, allow_nil: true
   validates :padel_level, numericality: { less_than_or_equal_to: 7.0 }
 
   # Include default devise modules. Others available are:
