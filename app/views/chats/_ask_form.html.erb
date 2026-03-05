@@ -2,6 +2,9 @@
   <div class="input-container">
     <div class="textarea-wrap">
       <%= f.text_area :content, id: "chatInput", placeholder: "Ask Maestro...", rows: 2, onkeydown: "handleKey(event)" %>
+      <button type="submit" class="submit-btn">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
     </div>
     <div class="input-footer">
       <div class="quick-chips">
@@ -9,10 +12,6 @@
         <span class="chip" onclick="fillInput(this)">Physical prep</span>
         <span class="chip" onclick="fillInput(this)">Match strategy</span>
       </div>
-      <button type="submit" class="submit-btn">
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        send
-      </button>
     </div>
   </div>
 <% end %>
