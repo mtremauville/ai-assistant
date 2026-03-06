@@ -62,7 +62,7 @@ body:has(.page-wrapper) {
   flex-shrink: 0;
   background: linear-gradient(to top, #1a1540 0%, #231D4D 55%, #26205a 100%);
   border-right: none;
-  padding: 28px 20px;
+  padding: 28px 20px 52px;
   display: flex; flex-direction: column; gap: 6px;
   overflow: hidden;
   position: relative;
@@ -224,7 +224,8 @@ body:has(.page-wrapper) {
   cursor: pointer;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.10);
-  margin-bottom: 16px;
+  margin-top: 8px;
+  margin-bottom: 0;
   transition: all 0.2s;
   text-decoration: none;
   font-family: 'Barlow', sans-serif;

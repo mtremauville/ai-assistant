@@ -95,6 +95,85 @@
   }
 }
 
+// ── Tennis ball (save session loader) ────────────────────────────────────────
+.tennis-ball-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+
+  // Ground shadow
+  &::after {
+    content: '';
+    width: 72px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 50%;
+    animation: tennisShadow 0.55s ease-in-out infinite;
+    margin-top: 2px;
+  }
+}
+
+.tennis-ball {
+  width: 88px;
+  height: 88px;
+  background: #FFE000;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  animation: tennisBounce 0.55s ease-in-out infinite;
+
+  // Left white stripe arc
+  &::before {
+    content: '';
+    position: absolute;
+    width: 160%;
+    height: 160%;
+    top: -30%;
+    left: -68%;
+    border-radius: 50%;
+    border: 8px solid rgba(255, 255, 255, 0.92);
+  }
+
+  // Right white stripe arc
+  &::after {
+    content: '';
+    position: absolute;
+    width: 160%;
+    height: 160%;
+    top: -30%;
+    right: -68%;
+    border-radius: 50%;
+    border: 8px solid rgba(255, 255, 255, 0.92);
+  }
+}
+
+@keyframes tennisBounce {
+  0%, 100% {
+    transform: translateY(0) scaleX(1.18) scaleY(0.82);
+    animation-timing-function: ease-out;
+  }
+  45% {
+    transform: translateY(-80px) scaleX(0.92) scaleY(1.08);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: translateY(-84px) scaleX(0.9) scaleY(1.1);
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes tennisShadow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(0.45);
+    opacity: 0.12;
+  }
+}
+
 // ── Full-page save loader overlay ─────────────────────────────────────────────
 .save-loader-overlay {
   display: none;
@@ -111,13 +190,6 @@
 
   &.visible {
     display: flex;
-  }
-
-  .loader--lg {
-    width: 96px;
-    height: 96px;
-
-    &:before { width: 96px; top: 114px; }
   }
 
   .save-loader-label {
