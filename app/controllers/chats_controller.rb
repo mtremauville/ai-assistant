@@ -49,7 +49,7 @@ class ChatsController < ApplicationController
     @chat.user = current_user
 
     if @chat.save
-      redirect_to chat_path(@chat)
+      redirect_to chat_path(@chat), notice: flash[:notice]
     else
       render "trainings/index"
     end
