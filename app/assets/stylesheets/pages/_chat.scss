@@ -322,7 +322,7 @@ body:has(.page-wrapper) {
 }
 
 .messages-inner {
-  max-width: 680px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 0;
   display: flex; flex-direction: column;
@@ -353,7 +353,7 @@ body:has(.page-wrapper) {
 
 // ── COACH BUBBLE ──
 .bubble-coach {
-  max-width: 680px; width: fit-content;
+  max-width: calc(100% - 150px); width: fit-content;
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(240,201,58,0.4);
@@ -378,6 +378,7 @@ body:has(.page-wrapper) {
   font-size: 16px; line-height: 1.75;
   color: rgba(255,255,255,0.92);
   font-weight: 400;
+  margin: 0;
 }
 
 .bubble-coach ol, .bubble-coach ul {
@@ -423,8 +424,9 @@ body:has(.page-wrapper) {
 
 // ── USER BUBBLE ──
 .bubble-user {
-  max-width: 480px;
-  background: rgba(255,255,255,0.05);
+  max-width: 600px;
+  min-width: 150px;
+  background: #1a1540;
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 16px;
@@ -459,7 +461,7 @@ body:has(.page-wrapper) {
 
 .input-container {
   width: 100%;
-  max-width: 680px;        /* EXACTEMENT la largeur de .bubble-coach */
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -472,15 +474,16 @@ body:has(.page-wrapper) {
 }
 
 .textarea-wrap {
-  position: relative;      /* Pour placer le bouton par rapport à l'input */
   width: 100%;
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 16px;
-  padding: 14px 18px;
-  padding-right: 45px;     /* Espace pour l'icône à droite */
+  padding: 12px 14px 12px 18px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
   &:focus-within {
     border-color: rgba(240,201,58,0.4);
@@ -488,7 +491,7 @@ body:has(.page-wrapper) {
   }
 
   textarea {
-    width: 100%;
+    flex: 1;
     background: none;
     border: none;
     outline: none;
@@ -496,9 +499,8 @@ body:has(.page-wrapper) {
     font-size: 15px;
     color: white;
     resize: none;
-    min-height: 52px;
     line-height: 1.6;
-    display: block;        /* Évite les espaces vides en bas */
+    display: block;
   }
 }
 
@@ -537,14 +539,12 @@ body:has(.page-wrapper) {
 }
 
 .submit-btn {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   display: flex;
+  flex-shrink: 0;
 
   &:hover { transform: scale(1.1); }
 
