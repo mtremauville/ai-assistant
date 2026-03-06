@@ -9,13 +9,14 @@
     </div>
 
     <div class="tl-library-header">
-      <span class="tl-library-count"><%= @trainings.count %> exercice<%= @trainings.count > 1 ? "s" : "" %></span>
+      <span class="tl-library-count" id="training-count"><%= @trainings.count %> exercice<%= @trainings.count > 1 ? "s" : "" %></span>
     </div>
 
     <% if @trainings.any? %>
       <div class="tl-cards-list">
         <% @trainings.each do |training| %>
           <div class="tl-card"
+               id="training-card-<%= training.id %>"
                data-training-library-target="card"
                data-id="<%= training.id %>">
 
@@ -42,9 +43,16 @@
                     },
                     class: "tl-open-btn" %>
 
-              <div class="tl-intensity" aria-label="Intensité : <%= training.intensity %> sur 10">
-                <% 10.times do |i| %>
-                  <span class="tl-intensity-dot <%= i < training.intensity ? 'active' : '' %>"></span>
+              <div class="tl-card-footer-right">
+                <div class="tl-intensity" aria-label="Intensité : <%= training.intensity %> sur 10">
+                  <% 10.times do |i| %>
+                    <span class="tl-intensity-dot <%= i < training.intensity ? 'active' : '' %>"></span>
+                  <% end %>
+                </div>
+                <%= button_to training_path(training), method: :delete,
+                      class: "tl-card-delete",
+                      form: { data: { turbo_confirm: "Supprimer cette séance ?" } } do %>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 <% end %>
               </div>
             </div>
