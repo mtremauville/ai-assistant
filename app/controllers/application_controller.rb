@@ -11,8 +11,10 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[padel_level age weight height hand_position gender username avatar_url])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[padel_level age weight height hand_position gender username avatar_url])
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: %i[padel_level age weight height hand_position gender username avatar_url])
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: %i[padel_level age weight height hand_position gender username avatar_url])
   end
 
   private
@@ -30,7 +32,7 @@ class ApplicationController < ActionController::Base
     elsif c.match?(/how many (player|people|person|are|will)|\bplayers?\b|\bjoueurs?\b|\bpersonnes?\b|\bformat\b|\bsolo\b|\bduo\b|\b2v2\b|avec combien|training (with|partner|alone)|\bseul\b|combien (sont|de joueur|de personne)/)
       ["Solo", "2 players", "4 players"]
     elsif c.match?(/equipment|matériel|have access (to|aux)|accès (aux|à)|cones?|targets?|panier|ball machine|filets|specific tools?|gear/)
-      ["Standard field", "Balles + cones", "Balls basket"]
+      ["Half court", "Full court", "Racket & balls only", "Balls basket"]
     elsif c.match?(/intensity|intensité|scale|échelle|1 to 10|1 à 10|\bscale\b.*10/)
       ["6/10", "7/10", "8/10", "9/10"]
     elsif c.match?(/bandeja|vollée|smash|vibora|fond de court|\bfocus\b|work on|travailler sur|objectif|aspect|skill|quoi travailler|what.*(work on|focus on|\btrain\b)/)
