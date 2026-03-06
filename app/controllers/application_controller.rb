@@ -18,19 +18,23 @@ class ApplicationController < ActionController::Base
   private
 
   def generate_chips(content)
-    c = content.downcase
-    if c.match?(/how (much|long)|how many (minutes|hours)|duration|heure|minute|combien de temps|quelle dur|temps (as|avez|avez-vous|disponible)|time (do you have|available)|long (is|will)/)
+    # Only analyse the question sentences to avoid false matches from echoed answers
+    # e.g. "Got it, 2 players. Now what's the focus?" — ignore "2 players" part
+    questions = content.scan(/[^.!\n]*\?/).join(" ")
+    c = (questions.presence || content).downcase
+
+    if c.match?(/how (much|long) (time|do)|how many (minutes|hours)|duration|heure|minute|combien de temps|quelle dur|temps (as|avez|avez-vous|disponible)|time (do you have|available)/)
       ["45 min", "1h", "1h30", "2h"]
-    elsif c.match?(/how many (player|people|person|are|will)|many (people|player|person)|player|joueur|personnes|format|solo|duo|2v2|avec combien|vous (êtes|serez)|training (with|partner|alone)|seul|combien (sont|de joueur|de personne)/)
-      ["Solo", "2 joueurs", "4 joueurs"]
-    elsif c.match?(/focus|work on|travailler|objectif|priorité|today|aujourd.hui|goal|improve|améliorer|want to (work|focus|train)|what.*(do|would).*(you|we).*(want|like)|quoi travailler/)
-      ["Technique", "Physique", "Tactique", "Matchplay"]
-    elsif c.match?(/equipment|matériel|have access|accès|panier|ball machine|filets|target|what.*(equipment|gear|material)/)
-      ["Terrain standard", "Balles seulement", "Tout le matériel"]
-    elsif c.match?(/level|niveau|experience|expérience|beginner|intermédiaire|compétiteur|classement|rank/)
+    elsif c.match?(/\blevel\b|\bniveau\b|beginner|intermediate|competitive|compétiteur|intermédiaire|classement|\brank\b|expérience/)
       ["Débutant", "Intermédiaire", "Compétiteur"]
-    elsif c.match?(/intensity|intensité|scale|échelle|1 to 10|1 à 10|effort/)
+    elsif c.match?(/how many (player|people|person|are|will)|\bplayers?\b|\bjoueurs?\b|\bpersonnes?\b|\bformat\b|\bsolo\b|\bduo\b|\b2v2\b|avec combien|training (with|partner|alone)|\bseul\b|combien (sont|de joueur|de personne)/)
+      ["Solo", "2 joueurs", "4 joueurs"]
+    elsif c.match?(/equipment|matériel|have access (to|aux)|accès (aux|à)|cones?|targets?|panier|ball machine|filets|specific tools?|gear/)
+      ["Terrain standard", "Balles + cônes", "Panier de balles"]
+    elsif c.match?(/intensity|intensité|scale|échelle|1 to 10|1 à 10|\bscale\b.*10/)
       ["6/10", "7/10", "8/10", "9/10"]
+    elsif c.match?(/bandeja|vollée|smash|vibora|fond de court|\bfocus\b|work on|travailler sur|objectif|aspect|skill|quoi travailler|what.*(work on|focus on|\btrain\b)/)
+      ["Bandeja", "Vollées", "Smash / Vibora", "Physique"]
     else
       []
     end
