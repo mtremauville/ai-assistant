@@ -9,3 +9,13 @@
 <%= turbo_stream.update "new_message_container" do %>
   <%= render "chats/ask_form", chat: @chat, message: Message.new, chips: @chips %>
 <% end %>
+
+<%# Sync sidebar link title (always, in case first message or training plan updated it) %>
+<%= turbo_stream.update "sidebar-chat-title-#{@chat.id}" do %>
+  <%= @chat.title %>
+<% end %>
+
+<%# Sync the in-page heading — Turbo ignores this silently if element doesn't exist yet %>
+<%= turbo_stream.update "chat-main-title" do %>
+  <%= @chat.title %>
+<% end %>

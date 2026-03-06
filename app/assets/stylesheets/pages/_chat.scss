@@ -177,6 +177,44 @@ body:has(.page-wrapper) {
   }
 }
 
+// ── SIDEBAR ITEM ROW (link + delete button) ──
+.sidebar-item-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .sidebar-item { flex: 1; }
+
+  .sidebar-delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s, background 0.15s;
+    margin-left: 4px;
+
+    svg {
+      width: 13px; height: 13px;
+      stroke: rgba(255,255,255,0.45);
+      transition: stroke 0.15s;
+    }
+
+    &:hover {
+      background: rgba(255,80,80,0.12);
+      svg { stroke: #ff6b6b; }
+    }
+  }
+
+  &:hover .sidebar-delete-btn { opacity: 1; }
+}
+
 .new-chat-btn {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 14px;
