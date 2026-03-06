@@ -1,3 +1,5 @@
+<%= turbo_stream.remove "loading-bubble" %>
+
 <%= turbo_stream.append "messages-inner" do %>
   <%= render "messages/message", message: @message %>
 <% end %>

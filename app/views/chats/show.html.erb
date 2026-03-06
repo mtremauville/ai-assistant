@@ -6,8 +6,8 @@
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <%= button_to "Nouvelle session", chats_path, method: :post, class: "new-chat-btn", form: { data: { turbo: false } } %>
-    <div class="sidebar-title">Historique</div>
+    <%= button_to "New Session", chats_path, method: :post, class: "new-chat-btn", form: { data: { turbo: false } } %>
+    <div class="sidebar-title">History</div>
     <% @chats.each do |chat| %>
       <div class="sidebar-item-row" id="sidebar-chat-wrap-<%= chat.id %>">
         <%= link_to chat_path(chat), class: "sidebar-item#{' active' if chat == @chat}" do %>
@@ -51,11 +51,11 @@
 
       <% if @chat.messages.empty? %>
         <div class="welcome-wrap" id="welcomeWrap">
-          <div class="welcome-eyebrow">Maestro — Ton coach padel</div>
+          <div class="welcome-eyebrow">Maestro — Your Padel Coach</div>
           <div class="welcome-greeting">
             Hey,&nbsp;<span class="welcome-name"><%= current_user.email.split('@').first.capitalize %></span>
           </div>
-          <div class="welcome-sub" id="welcomeSub" data-text="Décris ta session idéale et je construis l'entraînement parfait."></div>
+          <div class="welcome-sub" id="welcomeSub" data-text="Describe your ideal session and I'll build the perfect training."></div>
         </div>
       <% end %>
 
@@ -66,6 +66,12 @@
     </div>
 
   </main>
+</div>
+
+<!-- Full-page save loader overlay -->
+<div class="save-loader-overlay" id="saveLoaderOverlay">
+  <div class="loader loader--lg"></div>
+  <p class="save-loader-label">Saving your session…</p>
 </div>
 
 <% content_for :scripts do %>
@@ -87,6 +93,16 @@
       // Always clear the input on submit
       const chatInput = document.getElementById('chatInput');
       if (chatInput) chatInput.value = '';
+
+      // Inject loading bubble while waiting for AI response
+      const messagesInner = document.getElementById('messages-inner');
+      if (messagesInner) {
+        const loaderEl = document.createElement('div');
+        loaderEl.id = 'loading-bubble';
+        loaderEl.className = 'bubble-loader-wrap';
+        loaderEl.innerHTML = '<div class="bubble-loader"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>';
+        messagesInner.appendChild(loaderEl);
+      }
 
       if (!chatMain || !chatMain.classList.contains('chat-empty')) return;
 
@@ -118,6 +134,13 @@
         welcomeWrap.style.transition = 'opacity 0.25s ease';
         welcomeWrap.style.opacity    = '0';
         setTimeout(() => welcomeWrap.remove(), 300);
+      }
+    });
+
+    // Show full-page loader when saving a training session
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.save-training-inline-btn')) {
+        document.getElementById('saveLoaderOverlay').classList.add('visible');
       }
     });
 

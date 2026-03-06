@@ -11,7 +11,7 @@ class TrainingsController < ApplicationController
   def destroy
     @training.destroy
     count = current_user.trainings.count
-    label = "#{count} exercice#{count > 1 ? 's' : ''}"
+    label = "#{count} session#{count != 1 ? 's' : ''}"
     render turbo_stream: [
       turbo_stream.remove("training-card-#{@training.id}"),
       turbo_stream.update("training-count", label)

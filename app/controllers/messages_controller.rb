@@ -118,11 +118,11 @@ class MessagesController < ApplicationController
       "bandeja"       => "Bandeja",
       "vibora"        => "Vibora",
       "smash"         => "Smash",
-      "voll"          => "Vollées",
-      "fond de court" => "Fond de court",
-      "physique"      => "Physique",
-      "tactique"      => "Tactique",
-      "matchplay"     => "Match"
+      "voll"          => "Volleys",
+      "fond de court" => "Back court",
+      "physique"      => "Physical",
+      "tactique"      => "Tactical",
+      "matchplay"     => "Match play"
     }.find { |k, _| user_text.include?(k) }&.last
 
     duration = case user_text
@@ -133,7 +133,7 @@ class MessagesController < ApplicationController
                when /30\s*min/            then "30min"
                end
 
-    [focus, duration].compact.join(" · ").presence || "Séance padel"
+    [focus, duration].compact.join(" · ").presence || "Padel session"
   end
 
   # instructions for the llm taking the prompt + user context into account
