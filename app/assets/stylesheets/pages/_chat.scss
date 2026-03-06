@@ -360,9 +360,9 @@ body:has(.page-wrapper) {
 }
 
 .messages-inner {
-  max-width: 760px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0;
   display: flex; flex-direction: column;
   gap: 20px;
 }
@@ -391,23 +391,14 @@ body:has(.page-wrapper) {
 
 // ── COACH BUBBLE ──
 .bubble-coach {
-  max-width: 680px; width: 100%;
-  background: #252a4a;
-  border: 1px solid rgba(255,255,255,0.10);
-  border-left: 3px solid #f0c93a;
-  border-radius: 4px 12px 12px 12px;
+  max-width: calc(100% - 150px); width: fit-content;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(240,201,58,0.4);
+  border-radius: 16px;
   padding: 18px 22px;
-  position: relative;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.04) inset;
+  box-shadow: 0 0 0 3px rgba(240,201,58,0.08);
   animation: fadeInLeft 0.4s cubic-bezier(0.16,1,0.3,1) both;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, rgba(240,201,58,0.5) 0%, transparent 50%);
-    border-radius: 4px 12px 0 0;
-  }
 }
 
 .coach-tag {
@@ -425,6 +416,7 @@ body:has(.page-wrapper) {
   font-size: 16px; line-height: 1.75;
   color: rgba(255,255,255,0.92);
   font-weight: 400;
+  margin: 0;
 }
 
 .bubble-coach ol, .bubble-coach ul {
@@ -470,19 +462,21 @@ body:has(.page-wrapper) {
 
 // ── USER BUBBLE ──
 .bubble-user {
-  max-width: 480px;
-  background: #252a4a;
-  border: 1px solid rgba(255,255,255,0.13);
-  border-right: 3px solid rgba(255,255,255,0.22);
-  border-radius: 12px 4px 12px 12px;
+  max-width: 600px;
+  min-width: 150px;
+  background: #1a1540;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
   padding: 14px 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   animation: fadeInRight 0.3s cubic-bezier(0.16,1,0.3,1) both;
+  text-align: center;
 
   p {
     font-size: 16px; line-height: 1.65;
     color: rgba(255,255,255,0.85);
     font-weight: 300;
+    margin: 0;
   }
 }
 
@@ -505,7 +499,7 @@ body:has(.page-wrapper) {
 
 .input-container {
   width: 100%;
-  max-width: 680px;        /* EXACTEMENT la largeur de .bubble-coach */
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -518,15 +512,16 @@ body:has(.page-wrapper) {
 }
 
 .textarea-wrap {
-  position: relative;      /* Pour placer le bouton par rapport à l'input */
   width: 100%;
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 16px;
-  padding: 14px 18px;
-  padding-right: 45px;     /* Espace pour l'icône à droite */
+  padding: 12px 14px 12px 18px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
   &:focus-within {
     border-color: rgba(240,201,58,0.4);
@@ -534,7 +529,7 @@ body:has(.page-wrapper) {
   }
 
   textarea {
-    width: 100%;
+    flex: 1;
     background: none;
     border: none;
     outline: none;
@@ -542,9 +537,8 @@ body:has(.page-wrapper) {
     font-size: 15px;
     color: white;
     resize: none;
-    min-height: 52px;
     line-height: 1.6;
-    display: block;        /* Évite les espaces vides en bas */
+    display: block;
   }
 }
 
@@ -583,21 +577,18 @@ body:has(.page-wrapper) {
 }
 
 .submit-btn {
-  position: absolute;      /* Place l'icône DANS le textarea-wrap */
-  bottom: 12px;
-  right: 12px;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   display: flex;
+  flex-shrink: 0;
 
   &:hover { transform: scale(1.1); }
 
   svg {
-    width: 24px;           /* Taille réduite pour l'intérieur du champ */
+    width: 24px;
     height: 24px;
     fill: #f0c93a;
   }
 }
-
