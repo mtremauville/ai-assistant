@@ -62,7 +62,7 @@
     </button>
     <div class="login-title">Welcome<br>Back</div>
     <p class="login-sub">Sign in to continue</p>
-    <%= form_with url: user_session_path, method: :post, data: { turbo: false } do %>
+    <%= form_with url: user_session_path, method: :post, id: "loginForm", data: { turbo: false } do %>
       <div class="login-field">
         <label class="login-label">Email</label>
         <input class="login-input" type="email" name="user[email]" placeholder="you@example.com" autocomplete="email">
@@ -71,6 +71,7 @@
         <label class="login-label">Password</label>
         <input class="login-input" type="password" name="user[password]" placeholder="••••••••" autocomplete="current-password">
       </div>
+      <div id="loginError" style="display:none; color:#e05252; font-size:0.8rem; margin-top:-4px; margin-bottom:4px;">Invalid email or password</div>
       <%= link_to "Forgot password?", new_user_password_path, class: "login-forgot" %>
       <button type="submit" class="login-submit">Sign in</button>
     <% end %>
@@ -129,6 +130,25 @@
 
     loginBack.addEventListener('click', () => {
       scene.classList.remove('login-open');
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const loginError = document.getElementById('loginError');
+      loginError.style.display = 'none';
+
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        redirect: 'follow'
+      });
+
+      if (response.url.includes('sign_in')) {
+        loginError.style.display = 'block';
+      } else {
+        window.location.href = response.url;
+      }
     });
   </script>
 <% end %>
