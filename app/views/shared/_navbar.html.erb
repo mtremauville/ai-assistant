@@ -1,13 +1,16 @@
 <nav class="app-nav">
   <div class="app-nav__brand">
+    <%= link_to chats_path, data: { turbo_method: :post }, class: "text-decoration-none" do %>
     <span class="app-nav__logo">Padel Maestro</span>
+    <% end %>
   </div>
 
   <% if user_signed_in? %>
     <div class="app-nav__actions">
       <%= link_to "Chatbot", chats_path, data: { turbo_method: :post }, class: "app-nav__link#{' app-nav__link--active' if controller_name == 'chats'}" %>
-      <%= link_to "Training Library", trainings_path, class: "app-nav__link#{' app-nav__link--active' if controller_name == 'trainings'}" %>
-      <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "app-nav__link app-nav__link--logout" %>
+      <%= link_to "My Training Library", trainings_path, class: "app-nav__link#{' app-nav__link--active' if controller_name == 'trainings'}" %>
+      <%= link_to "My profile", pages_profile_path, class: "app-nav__link#{' app-nav__link--active' if controller_name == 'pages' && action_name == 'profile'}" %>
+      <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "app-nav__link app-nav__link--logout" %>
     </div>
   <% end %>
 </nav>
