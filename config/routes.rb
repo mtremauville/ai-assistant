@@ -18,12 +18,12 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  resources :chats, only: [:create, :show] do
+  resources :chats, only: [:create, :show, :destroy] do
     resources :messages, only: :create
     member do
       post :generate_training
     end
   end
 
-  resources :trainings, only: [:index, :show]
+  resources :trainings, only: [:index, :show, :destroy]
 end

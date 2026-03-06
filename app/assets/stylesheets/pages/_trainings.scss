@@ -112,6 +112,36 @@ body:has(.tl-scene) {
   gap: 10px;
 }
 
+.tl-card-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .tl-card-delete {
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s, background 0.15s;
+
+    svg {
+      width: 12px; height: 12px;
+      stroke: rgba(255,255,255,0.45);
+      transition: stroke 0.15s;
+    }
+
+    &:hover {
+      background: rgba(255,80,80,0.15);
+      svg { stroke: #ff6b6b; }
+    }
+  }
+}
+
 .tl-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid $tr-border;
@@ -119,6 +149,8 @@ body:has(.tl-scene) {
   padding: 16px 18px;
   transition: background 0.2s ease, border-color 0.2s ease;
   animation: card-in 0.5s $tr-ease both;
+
+  &:hover .tl-card-delete { opacity: 1; }
 
   &:hover {
     background: rgba(255, 255, 255, 0.07);

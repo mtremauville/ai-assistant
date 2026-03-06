@@ -64,6 +64,12 @@ class ChatsController < ApplicationController
     @chips = last_assistant ? generate_chips(last_assistant.content) : []
   end
 
+  def destroy
+    @chat = current_user.chats.find(params[:id])
+    @chat.destroy
+    render turbo_stream: turbo_stream.remove("sidebar-chat-wrap-#{@chat.id}")
+  end
+
   def generate_training
     @chat = current_user.chats.find(params[:id])
     parsed = parse_training_from_llm(@chat.messages.last.content)

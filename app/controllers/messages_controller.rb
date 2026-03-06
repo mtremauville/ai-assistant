@@ -77,6 +77,10 @@ class MessagesController < ApplicationController
       @assistant_message = @chat.messages.create(role: "assistant", content: response.content)
       @chips = generate_chips(@assistant_message.content)
 
+      if @assistant_message.content.include?("# Training Session Plan")
+        @chat.update(title: build_training_title)
+      end
+
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to chat_path(@chat) }
@@ -105,6 +109,31 @@ class MessagesController < ApplicationController
     @chat.messages.each do |message|
       @llm_instance.add_message(message)
     end
+  end
+
+  def build_training_title
+    user_text = @chat.messages.where(role: "user").map(&:content).join(" ").downcase
+
+    focus = {
+      "bandeja"       => "Bandeja",
+      "vibora"        => "Vibora",
+      "smash"         => "Smash",
+      "voll"          => "Vollées",
+      "fond de court" => "Fond de court",
+      "physique"      => "Physique",
+      "tactique"      => "Tactique",
+      "matchplay"     => "Match"
+    }.find { |k, _| user_text.include?(k) }&.last
+
+    duration = case user_text
+               when /\b2\s*h\b/           then "2h"
+               when /1h?\s*30|1\s*h\s*30/ then "1h30"
+               when /\b1\s*h\b|60\s*min/  then "1h"
+               when /45\s*min/            then "45min"
+               when /30\s*min/            then "30min"
+               end
+
+    [focus, duration].compact.join(" · ").presence || "Séance padel"
   end
 
   # instructions for the llm taking the prompt + user context into account

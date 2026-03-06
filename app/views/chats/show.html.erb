@@ -9,7 +9,15 @@
     <%= button_to "Nouvelle session", chats_path, method: :post, class: "new-chat-btn", form: { data: { turbo: false } } %>
     <div class="sidebar-title">Historique</div>
     <% @chats.each do |chat| %>
-      <%= link_to chat.title, chat_path(chat), class: "sidebar-item#{' active' if chat == @chat}" %>
+      <div class="sidebar-item-row" id="sidebar-chat-wrap-<%= chat.id %>">
+        <%= link_to chat_path(chat), class: "sidebar-item#{' active' if chat == @chat}" do %>
+          <span id="sidebar-chat-title-<%= chat.id %>"><%= chat.title %></span>
+        <% end %>
+        <%= button_to chat_path(chat), method: :delete, class: "sidebar-delete-btn",
+              form: { data: { turbo: true } } do %>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <% end %>
+      </div>
     <% end %>
     <div class="sidebar-spacer"></div>
     <%= link_to trainings_path, class: "sidebar-training-btn" do %>
@@ -27,7 +35,7 @@
 
         <% unless @chat.messages.empty? %>
           <div>
-            <div class="chat-title"><%= @chat.title %></div>
+            <div class="chat-title" id="chat-main-title"><%= @chat.title %></div>
           </div>
         <% end %>
 
