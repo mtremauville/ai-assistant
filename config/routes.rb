@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "pages/profile"
 
   authenticated :user do
-    root to: "trainings#index", as: :authenticated_root
+    root to: "chats#create", as: :authenticated_root
   end
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

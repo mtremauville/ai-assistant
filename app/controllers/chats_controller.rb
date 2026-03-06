@@ -58,7 +58,8 @@ class ChatsController < ApplicationController
   def show
     @chat    = current_user.chats.find(params[:id])
     @message = Message.new
-    @chats   = current_user.chats.order(created_at: :desc).limit(5)
+    clean
+    @chats = current_user.chats.order(created_at: :desc).limit(5)
     last_assistant = @chat.messages.where(role: "assistant").last
     @chips = last_assistant ? generate_chips(last_assistant.content) : []
   end
@@ -79,6 +80,14 @@ class ChatsController < ApplicationController
   TRAINING_KEYS = %w[duration training_type team_size intensity content maestro_conseil].freeze
 
   private
+
+  def clean
+    current_chat = current_user.chats.find(params[:id])
+    chats = current_user.chats
+    chats.each do |chat|
+      chat.destroy if chat.messages.empty? && chat != current_chat
+    end
+  end
 
   def parse_training_from_llm(message_content)
     response = RubyLLM.chat.with_instructions(HASH_PROMPT).ask(message_content)

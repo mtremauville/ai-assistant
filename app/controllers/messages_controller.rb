@@ -21,6 +21,7 @@ class MessagesController < ApplicationController
     If padel level (1–7 scale) is provided in user context, convert it internally into beginner / intermediate / competitive and do not ask.
     Specific focus + available equipment
     If something is missing, ask directly and efficiently.
+    When asking about focus, always frame it in terms of padel-specific elements. Examples: bandeja, vollées, smash/vibora, fond de court, physique, tactique de jeu, jeu aux vitres. Never say generic things like "technique" or "strategy" alone — always name actual padel shots or aspects.
 
     SEQUENTIAL COLLECTION RULE
     Collect the 4 required inputs one at a time.

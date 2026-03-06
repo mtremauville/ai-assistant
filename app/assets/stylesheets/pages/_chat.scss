@@ -232,46 +232,80 @@ body:has(.page-wrapper) {
 // ── WELCOME MESSAGE ──
 .welcome-wrap {
   text-align: center;
-  padding: 0 24px 28px;
-  animation: welcomeFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  padding: 0 24px 32px;
+}
+
+.welcome-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #f0c93a;
+  margin-bottom: 14px;
+  opacity: 0;
+  animation: welcomeFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
 }
 
 .welcome-greeting {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 42px;
+  font-size: 76px;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #ffffff;
-  line-height: 1.1;
-  margin-bottom: 10px;
+  line-height: 1;
+  margin-bottom: 18px;
+  opacity: 0;
+  animation: welcomeFadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
 
 .welcome-name {
   color: #f0c93a;
+  display: inline-block;
   position: relative;
+  animation: nameGlow 2.5s ease-in-out 0.8s infinite alternate;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: 2px;
     left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #f0c93a, transparent);
-    border-radius: 1px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #f0c93a 40%, transparent);
+    border-radius: 2px;
   }
+}
+
+@keyframes nameGlow {
+  from { text-shadow: 0 0 20px rgba(240,201,58,0.0); }
+  to   { text-shadow: 0 0 28px rgba(240,201,58,0.55), 0 0 60px rgba(240,201,58,0.18); }
 }
 
 .welcome-sub {
   font-family: 'Barlow', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.52);
+  letter-spacing: 0.03em;
+  min-height: 1.6em;
+  opacity: 0;
+  animation: welcomeFadeUp 0.4s ease 0.65s both;
 }
 
-@keyframes welcomeFadeIn {
-  from { opacity: 0; transform: translateY(-12px); }
+.tw-cursor {
+  color: #f0c93a;
+  font-weight: 300;
+  animation: cursorBlink 0.75s step-start infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes welcomeFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
