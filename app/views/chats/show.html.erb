@@ -43,10 +43,11 @@
 
       <% if @chat.messages.empty? %>
         <div class="welcome-wrap" id="welcomeWrap">
+          <div class="welcome-eyebrow">Maestro — Ton coach padel</div>
           <div class="welcome-greeting">
-            Hey, <span class="welcome-name"><%= current_user.email.split('@').first.capitalize %></span>
+            Hey,&nbsp;<span class="welcome-name"><%= current_user.email.split('@').first.capitalize %></span>
           </div>
-          <div class="welcome-sub">Décris ta session idéale et je construis l'entraînement parfait.</div>
+          <div class="welcome-sub" id="welcomeSub" data-text="Décris ta session idéale et je construis l'entraînement parfait."></div>
         </div>
       <% end %>
 
@@ -111,5 +112,32 @@
         setTimeout(() => welcomeWrap.remove(), 300);
       }
     });
+
+    // Typewriter effect for welcome subtitle
+    const welcomeSub = document.getElementById('welcomeSub');
+    if (welcomeSub) {
+      const text   = welcomeSub.dataset.text;
+      const cursor = document.createElement('span');
+      cursor.className   = 'tw-cursor';
+      cursor.textContent = '|';
+      welcomeSub.appendChild(cursor);
+
+      let i = 0;
+      setTimeout(() => {
+        const timer = setInterval(() => {
+          if (i < text.length) {
+            welcomeSub.insertBefore(document.createTextNode(text[i]), cursor);
+            i++;
+          } else {
+            clearInterval(timer);
+            setTimeout(() => {
+              cursor.style.transition = 'opacity 0.4s';
+              cursor.style.opacity = '0';
+              setTimeout(() => cursor.remove(), 400);
+            }, 800);
+          }
+        }, 32);
+      }, 700); // start after greeting animation settles
+    }
   </script>
 <% end %>
