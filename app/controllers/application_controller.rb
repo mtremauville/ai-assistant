@@ -26,15 +26,15 @@ class ApplicationController < ActionController::Base
     if c.match?(/how (much|long) (time|do)|how many (minutes|hours)|duration|heure|minute|combien de temps|quelle dur|temps (as|avez|avez-vous|disponible)|time (do you have|available)/)
       ["45 min", "1h", "1h30", "2h"]
     elsif c.match?(/\blevel\b|\bniveau\b|beginner|intermediate|competitive|compétiteur|intermédiaire|classement|\brank\b|expérience/)
-      ["Débutant", "Intermédiaire", "Compétiteur"]
+      ["Beginner", "Intermediate", "Competitive"]
     elsif c.match?(/how many (player|people|person|are|will)|\bplayers?\b|\bjoueurs?\b|\bpersonnes?\b|\bformat\b|\bsolo\b|\bduo\b|\b2v2\b|avec combien|training (with|partner|alone)|\bseul\b|combien (sont|de joueur|de personne)/)
-      ["Solo", "2 joueurs", "4 joueurs"]
+      ["Solo", "2 players", "4 players"]
     elsif c.match?(/equipment|matériel|have access (to|aux)|accès (aux|à)|cones?|targets?|panier|ball machine|filets|specific tools?|gear/)
-      ["Terrain standard", "Balles + cônes", "Panier de balles"]
+      ["Standard field", "Balles + cones", "Balls basket"]
     elsif c.match?(/intensity|intensité|scale|échelle|1 to 10|1 à 10|\bscale\b.*10/)
       ["6/10", "7/10", "8/10", "9/10"]
     elsif c.match?(/bandeja|vollée|smash|vibora|fond de court|\bfocus\b|work on|travailler sur|objectif|aspect|skill|quoi travailler|what.*(work on|focus on|\btrain\b)/)
-      ["Bandeja", "Vollées", "Smash / Vibora", "Physique"]
+      ["Bandeja", "Volleys", "Smash / Vibora", "Physic"]
     else
       []
     end

@@ -1,0 +1,148 @@
+// ── Bouncing padel ball loader ────────────────────────────────────────────────
+.loader {
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  position: relative;
+
+  &:before {
+    content: '';
+    width: 48px;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    border-radius: 50%;
+    animation: loaderShadow 0.5s linear infinite;
+  }
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #FFE000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 40px;
+    animation: loaderBounce 0.5s linear infinite;
+  }
+}
+
+.loader--lg {
+  width: 80px;
+  height: 80px;
+
+  &:before {
+    width: 80px;
+    top: 96px;
+  }
+}
+
+@keyframes loaderBounce {
+  15% { border-bottom-right-radius: 40px; }
+  25% { transform: translateY(15px) rotate(22.5deg); }
+  50% {
+    transform: translateY(17px) scale(1, .9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+  75% { transform: translateY(4px) rotate(50.5deg); }
+  100% { transform: translateY(4px) rotate(90deg); }
+}
+
+@keyframes loaderShadow {
+  0%, 100% { transform: scale(2, 2); }
+  50% { transform: scale(2, 1); }
+}
+
+// ── Chat: 3-dot typing indicator ──────────────────────────────────────────────
+.bubble-loader-wrap {
+  display: flex;
+  justify-content: flex-start;
+  padding: 4px 0;
+
+  .bubble-loader {
+    background: #0f1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .typing-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    animation: typingPulse 1.2s ease-in-out infinite;
+
+    &:nth-child(2) { animation-delay: 0.2s; }
+    &:nth-child(3) { animation-delay: 0.4s; }
+  }
+}
+
+@keyframes typingPulse {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+// ── Full-page save loader overlay ─────────────────────────────────────────────
+.save-loader-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 32px;
+  background: rgba(5, 8, 18, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  &.visible {
+    display: flex;
+  }
+
+  .loader--lg {
+    width: 96px;
+    height: 96px;
+
+    &:before { width: 96px; top: 114px; }
+  }
+
+  .save-loader-label {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+}
+
+// ── Training detail: frame loading overlay ────────────────────────────────────
+.tl-frame-loader {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 10, 20, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 10;
+  border-radius: 16px;
+
+  &.visible {
+    display: flex;
+  }
+}

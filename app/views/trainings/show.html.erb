@@ -7,14 +7,14 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <path d="M19 12H5M12 5l-7 7 7 7"/>
       </svg>
-      Fermer
+      Close
     </button>
 
-    <h1 class="tl-detail-title"><%= @training.name.presence || "Séance #{@training.training_type.capitalize}" %></h1>
+    <h1 class="tl-detail-title"><%= @training.name.presence || "Session #{@training.training_type.capitalize}" %></h1>
 
     <div class="tl-title-meta">
       <span class="tl-detail-badge badge-type"><%= @training.training_type %></span>
-      <div class="tl-stars" aria-label="Note : <%= @training.feedback_rating.present? ? "#{(@training.feedback_rating.to_f / 10 * 3).round} étoiles sur 3" : "non notée" %>">
+      <div class="tl-stars" aria-label="Rating: <%= @training.feedback_rating.present? ? "#{(@training.feedback_rating.to_f / 10 * 3).round} stars out of 3" : "not rated" %>">
         <% stars_filled = @training.feedback_rating.present? ? [(@training.feedback_rating.to_f / 10 * 3).round, 3].min : 0 %>
         <% 3.times do |i| %>
           <svg class="tl-star <%= i < stars_filled ? 'active' : '' %>" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@
             onerror: "this.style.display='none';this.nextElementSibling.style.display='flex';" %>
       <div class="tl-img-placeholder" style="display:none;">
         <i class="fa-regular fa-image fa-2x"></i>
-        <span>Exercice Padel</span>
+        <span>Padel Session</span>
       </div>
     </div>
 
@@ -46,15 +46,15 @@
         <div class="tl-info-value"><%= @training.training_type.capitalize %></div>
       </div>
       <div class="tl-info-box">
-        <div class="tl-info-label">Durée</div>
+        <div class="tl-info-label">Duration</div>
         <div class="tl-info-value"><%= @training.duration %> min</div>
       </div>
       <div class="tl-info-box">
-        <div class="tl-info-label">Joueurs</div>
+        <div class="tl-info-label">Players</div>
         <div class="tl-info-value"><%= @training.team_size %></div>
       </div>
       <div class="tl-info-box">
-        <div class="tl-info-label">Intensité</div>
+        <div class="tl-info-label">Intensity</div>
         <div class="tl-info-value"><%= @training.intensity %>/10</div>
       </div>
     </div>
@@ -62,13 +62,13 @@
     <%# ── Mise en place ──────────────────────────────────────────── %>
     <div class="tl-section">
       <div class="tl-section-title">
-        <i class="fa-solid fa-list-ol"></i> Mise en place détaillée
+        <i class="fa-solid fa-list-ol"></i> Detailed Breakdown
       </div>
       <div class="tl-section-content">
         <% if @training.content.present? %>
           <%= markdown(@training.content) %>
         <% else %>
-          <p style="font-style: italic; opacity: 0.55;">Aucun contenu disponible pour cet exercice.</p>
+          <p style="font-style: italic; opacity: 0.55;">No content available for this session.</p>
         <% end %>
       </div>
     </div>
@@ -76,13 +76,13 @@
     <%# ── Le Conseil du Maestro ──────────────────────────────────── %>
     <div class="tl-section tl-maestro">
       <div class="tl-section-title">
-        <i class="fa-solid fa-star"></i> Le Conseil du Maestro
+        <i class="fa-solid fa-star"></i> Maestro's Advice
       </div>
       <div class="tl-section-content">
         <% if @training.maestro_conseil.present? %>
           <%= markdown("_\"#{@training.maestro_conseil}\"_") %>
         <% else %>
-          <p>Ce conseil sera bientôt affiché ici.</p>
+          <p>This advice will be shown here soon.</p>
         <% end %>
       </div>
     </div>

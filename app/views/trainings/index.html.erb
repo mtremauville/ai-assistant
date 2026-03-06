@@ -5,11 +5,11 @@
 
     <div>
       <p class="tl-eyebrow">An AI Chatbot Trainer · The Maestro of Padel</p>
-      <h1 class="tl-brand">Bibliothèque d'exercices</h1>
+      <h1 class="tl-brand">Training Library</h1>
     </div>
 
     <div class="tl-library-header">
-      <span class="tl-library-count" id="training-count"><%= @trainings.count %> exercice<%= @trainings.count > 1 ? "s" : "" %></span>
+      <span class="tl-library-count" id="training-count"><%= @trainings.count %> session<%= @trainings.count != 1 ? "s" : "" %></span>
     </div>
 
     <% if @trainings.any? %>
@@ -28,14 +28,14 @@
               </div>
             </div>
 
-            <h3 class="tl-card-title"><%= training.name.presence || "Séance #{training.training_type.capitalize}" %></h3>
+            <h3 class="tl-card-title"><%= training.name.presence || "Session #{training.training_type.capitalize}" %></h3>
 
             <p class="tl-card-desc">
               <%= truncate(training.content.to_s, length: 95, omission: "…") %>
             </p>
 
             <div class="tl-card-footer">
-              <%= link_to "Ouvrir", training_path(training),
+              <%= link_to "Open", training_path(training),
                     data: {
                       turbo_frame: "training-detail",
                       action: "click->training-library#select",
@@ -44,14 +44,14 @@
                     class: "tl-open-btn" %>
 
               <div class="tl-card-footer-right">
-                <div class="tl-intensity" aria-label="Intensité : <%= training.intensity %> sur 10">
+                <div class="tl-intensity" aria-label="Intensity: <%= training.intensity %> out of 10">
                   <% 10.times do |i| %>
                     <span class="tl-intensity-dot <%= i < training.intensity ? 'active' : '' %>"></span>
                   <% end %>
                 </div>
                 <%= button_to training_path(training), method: :delete,
                       class: "tl-card-delete",
-                      form: { data: { turbo_confirm: "Supprimer cette séance ?" } } do %>
+                      form: { data: { turbo_confirm: "Delete this session?" } } do %>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 <% end %>
               </div>
@@ -64,7 +64,7 @@
       <div style="text-align:center; margin-top: 40px; color: #E5E7EB;">
         <i class="fa-solid fa-dumbbell fa-2x" style="margin-bottom: 12px; display:block;"></i>
         <p style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;">
-          Aucun exercice pour le moment
+          No sessions yet
         </p>
       </div>
     <% end %>
@@ -72,15 +72,36 @@
   </aside>
 
   <%# ── RIGHT DETAIL PANEL ──────────────────────────────────────── %>
-  <div class="tl-detail">
+  <div class="tl-detail" style="position: relative;">
+    <div class="tl-frame-loader" id="trainingFrameLoader">
+      <div class="loader loader--lg"></div>
+    </div>
     <%= turbo_frame_tag "training-detail" do %>
       <div class="tl-empty-state">
         <span class="tl-empty-icon">
           <i class="fa-solid fa-table-tennis-paddle-ball"></i>
         </span>
-        <p>Sélectionnez un exercice</p>
+        <p>Select a session</p>
       </div>
     <% end %>
   </div>
+
+  <script>
+    (function() {
+      const frameLoader = document.getElementById('trainingFrameLoader');
+      const frame = document.getElementById('training-detail');
+      if (!frameLoader || !frame) return;
+
+      frame.addEventListener('turbo:before-fetch-request', () => {
+        frameLoader.classList.add('visible');
+      });
+      frame.addEventListener('turbo:frame-render', () => {
+        frameLoader.classList.remove('visible');
+      });
+      frame.addEventListener('turbo:fetch-request-error', () => {
+        frameLoader.classList.remove('visible');
+      });
+    })();
+  </script>
 
 </div>
