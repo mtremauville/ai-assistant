@@ -50,7 +50,7 @@ gem "sassc-rails"
 gem "devise"
 
 # llm
-gem "ruby_llm", "~> 1.2.0"
+gem "ruby_llm", "~> 1.13.2"
 
 # markdown rendering
 gem "redcarpet"
