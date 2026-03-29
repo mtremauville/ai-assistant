@@ -1,3 +1,5 @@
+Built as a team project during the Le Wagon Full Stack bootcamp (Batch — January 2026).
+
 
 ---
 
