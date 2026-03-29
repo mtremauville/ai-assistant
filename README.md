@@ -1,6 +1,4 @@
-Built as a team project during the Le Wagon Full Stack bootcamp (Batch — January 2026).
-
-
+ 
 ---
 
 ## 🎾 README — Padel Maestro
@@ -35,7 +33,7 @@ Padel Maestro is a full stack web application that generates personalized padel 
 | Interactivity | JavaScript · Stimulus.js |
 | Authentication | Devise |
 | AI | OpenAI GPT-4o mini · ruby_llm |
-| Deployment |heroku|
+| Deployment | Kamal · Docker |
 | Version control | Git · GitHub |
 
 ---
