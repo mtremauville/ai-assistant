@@ -1,9 +1,4 @@
- 
 ---
-
-## 🎾 README — Padel Maestro
-
-```markdown
 # 🎾 Padel Maestro
 
 > Your AI-powered padel coach. Train smarter, play better.
