@@ -28,7 +28,7 @@ Padel Maestro is a full stack web application that generates personalized padel 
 | Interactivity | JavaScript · Stimulus.js |
 | Authentication | Devise |
 | AI | OpenAI GPT-4o mini · ruby_llm |
-| Deployment | Kamal · Docker |
+| Deployment | Heroku |
 | Version control | Git · GitHub |
 
 ---
@@ -55,7 +55,7 @@ Diplômé Le Wagon — Promotion Janvier 2026
 ### Prerequisites
 
 - Ruby 3.x
-- Rails 7.x
+- Rails 8.x
 - PostgreSQL
 - An OpenAI API key
 
